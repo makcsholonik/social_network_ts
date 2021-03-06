@@ -1,0 +1,21 @@
+.nav {
+    grid-area: n;
+    background-color: lightgray;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.item a {
+    color: darkgrey;
+    text-decoration: none;
+}
+
+.item a:hover {
+    color: black;
+}
+
+.item .active {
+    color: black;
+    font-weight: 900;
+}
