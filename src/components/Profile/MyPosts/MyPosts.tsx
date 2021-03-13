@@ -1,27 +1,24 @@
-import React, {ChangeEvent} from 'react';
+import React, { ChangeEvent } from 'react';
 import s from './MyPosts.module.css';
-import {Post} from "./Post/Post";
-import {PostType} from "../../../redux/state";
+import { Post } from "./Post/Post";
+import { ActionsTypes, PostType } from "../../../redux/state";
 
 export type PropsType = {
 	posts: Array<PostType>
-	addPostCallback: (newPostText: string) => void
 	newPostText: string
-	updateNewPostText: (newText: string) => void
+	dispatch: ( action: ActionsTypes ) => void
 }
 
-export const MyPosts: React.FC<PropsType> = (props) => {
+export const MyPosts: React.FC<PropsType> = ( props ) => {
 
-	let postsElements = props.posts.map(p => <Post message={p.message} likeCounts={p.likeCounts}/>)
-
+	let postsElements = props.posts.map ( p => <Post message={p.message} likeCounts={p.likeCounts}/> )
 	// добавление новой записи на стену
 	let addPost = () => {
-		props.addPostCallback(props.newPostText);
+		props.dispatch ( { type: "ADD-POST", message: props.newPostText } )
 	}
-
 	// передача значения textarea в BLL
-	let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		props.updateNewPostText(e.currentTarget.value)
+	let onPostChange = ( e: ChangeEvent<HTMLTextAreaElement> ) => {
+		props.dispatch ( { type: "UPDATE-NEW-POST-TEXT", postText: e.currentTarget.value } )
 	}
 
 	return (
@@ -30,9 +27,9 @@ export const MyPosts: React.FC<PropsType> = (props) => {
 			<div>
 				<div>
                     <textarea
-						value={props.newPostText}
-						onChange={onPostChange}
-					/>
+							  value={props.newPostText}
+							  onChange={onPostChange}
+						  />
 				</div>
 				<div className={s.button}>
 					<button onClick={addPost}>Add Post</button>

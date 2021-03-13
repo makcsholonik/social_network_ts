@@ -27,12 +27,21 @@ export type StateType = {
 
 export type StoreType = {
 	_state: StateType
-	getState: any
-	addPost: () => void
-	updateNewPostText: ( postText: string ) => void
-	subscribe: ( observer: () => void ) => void
 	_callSubscriber: () => void
+	getState: any
+	subscribe: ( observer: () => void ) => void
+	dispatch: ( action: ActionsTypes ) => void
 }
+
+type AddPostActionType = {
+	type: "ADD-POST"
+	message: string
+}
+type UpdateNewPostTextActionType = {
+	type: "UPDATE-NEW-POST-TEXT"
+	postText: string
+}
+export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType
 
 export const store: StoreType = {
 	_state: {
@@ -55,31 +64,31 @@ export const store: StoreType = {
 				{ id: 3, message: "How do you feel?" }
 			]
 
-		},
-		// sidebar: {}
-	},
-	getState () {
-		return this._state;
-	},
-	addPost () {
-		let newPost: PostType = {
-			id: 5,
-			message: this._state.profilePage.newPostText,
-			likeCounts: 0
 		}
-		this._state.profilePage.posts.push ( newPost );
-		this._state.profilePage.newPostText = ""; // обновление input'a после добавления поста
-		this._callSubscriber ();
-	},
-	updateNewPostText ( postText: string ) {
-		this._state.profilePage.newPostText = postText
-		this._callSubscriber ();
-	},
-	subscribe ( observer ) {
-		this._callSubscriber = observer;
 	},
 	_callSubscriber () {
 		console.log ( "hello" )
+	},
+	getState () {
+		return this._state;
+	}, // интерфейсный метод
+	subscribe ( observer ) {
+		this._callSubscriber = observer;
+	}, // интерфейсный метод
+	dispatch ( action ) {
+		if (action.type === "ADD-POST") {
+			let newPost: PostType = {
+				id: 5,
+				message: this._state.profilePage.newPostText,
+				likeCounts: 0
+			}
+			this._state.profilePage.posts.push ( newPost );
+			this._state.profilePage.newPostText = ""; // обновление input'a после добавления поста
+			this._callSubscriber ();
+		} else if (action.type === "UPDATE-NEW-POST-TEXT") {
+			this._state.profilePage.newPostText = action.postText
+			this._callSubscriber ();
+		}
 	}
 }
 
@@ -88,8 +97,6 @@ export const store: StoreType = {
 let rerenderThree = () => {
 	console.log ( "hello" )
 };*/
-
-
 /*
 //типизация state
 export let state: StateType = {
@@ -135,5 +142,19 @@ export const subscribe = ( observer: () => void ) => {
 	rerenderThree = observer;
 }
 */
+/*addPost () {
+	let newPost: PostType = {
+		id: 5,
+		message: this._state.profilePage.newPostText,
+		likeCounts: 0
+	}
+	this._state.profilePage.posts.push ( newPost );
+	this._state.profilePage.newPostText = ""; // обновление input'a после добавления поста
+	this._callSubscriber ();
+}, // добавление поста*/
+/*	updateNewPostText ( postText: string ) {
+		this._state.profilePage.newPostText = postText
+		this._callSubscriber ();
+	},*/
 
 
