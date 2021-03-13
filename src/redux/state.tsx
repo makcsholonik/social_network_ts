@@ -1,3 +1,9 @@
+import { ChangeEvent } from "react";
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
+
 export type PostType = {
 	id: number
 	message: string
@@ -33,15 +39,8 @@ export type StoreType = {
 	dispatch: ( action: ActionsTypes ) => void
 }
 
-type AddPostActionType = {
-	type: "ADD-POST"
-	message: string
-}
-type UpdateNewPostTextActionType = {
-	type: "UPDATE-NEW-POST-TEXT"
-	postText: string
-}
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType
+
+export type ActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
 
 export const store: StoreType = {
 	_state: {
@@ -76,7 +75,7 @@ export const store: StoreType = {
 		this._callSubscriber = observer;
 	}, // интерфейсный метод
 	dispatch ( action ) {
-		if (action.type === "ADD-POST") {
+		if (action.type === ADD_POST) {
 			let newPost: PostType = {
 				id: 5,
 				message: this._state.profilePage.newPostText,
@@ -92,69 +91,18 @@ export const store: StoreType = {
 	}
 }
 
+export let addPostActionCreator = ( newPostText: string ) => {
+	return {
+		type: ADD_POST,
+		message: newPostText
+	} as const
+}
+export let updateNewPostTextActionCreator = ( e: ChangeEvent<HTMLTextAreaElement> ) => {
+	return {
+		type: UPDATE_NEW_POST_TEXT,
+		postText: e.currentTarget.value
+	} as const
+}
 
-/*
-let rerenderThree = () => {
-	console.log ( "hello" )
-};*/
-/*
-//типизация state
-export let state: StateType = {
-	profilePage: {
-		posts: [
-			{ id: 1, message: "Hello, I'm fine.", likeCounts: 30 },
-			{ id: 2, message: "Hello!", likeCounts: 31 }
-		],
-		newPostText: ""
-	},
-	dialogPage: {
-		dialogs: [
-			{ id: 1, name: "Maxim" },
-			{ id: 2, name: "Marta" },
-			{ id: 3, name: "Eseniya" }
-		],
-		messages: [
-			{ id: 1, message: "Hello, Maxim!" },
-			{ id: 2, message: "Hello!" },
-			{ id: 3, message: "How do you feel?" }
-		]
-
-	},*!/
-sidebar: {}
-}
-// функция добавления поста
-export const addPost = () => {
-	let newPost: PostType = {
-		id: 5,
-		message: state.profilePage.newPostText,
-		likeCounts: 0
-	}
-	state.profilePage.posts.push ( newPost );
-	state.profilePage.newPostText = ""; // обновление input'a после добавления поста
-	rerenderThree ();
-}
-// функция передачи значения textarea
-export const updateNewPostText = ( postText: string ) => {
-	state.profilePage.newPostText = postText
-	rerenderThree ();
-}
-export const subscribe = ( observer: () => void ) => {
-	rerenderThree = observer;
-}
-*/
-/*addPost () {
-	let newPost: PostType = {
-		id: 5,
-		message: this._state.profilePage.newPostText,
-		likeCounts: 0
-	}
-	this._state.profilePage.posts.push ( newPost );
-	this._state.profilePage.newPostText = ""; // обновление input'a после добавления поста
-	this._callSubscriber ();
-}, // добавление поста*/
-/*	updateNewPostText ( postText: string ) {
-		this._state.profilePage.newPostText = postText
-		this._callSubscriber ();
-	},*/
 
 

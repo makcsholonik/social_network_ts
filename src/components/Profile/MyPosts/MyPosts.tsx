@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import s from './MyPosts.module.css';
 import { Post } from "./Post/Post";
-import { ActionsTypes, PostType } from "../../../redux/state";
+import { ActionsTypes, addPostActionCreator, PostType, updateNewPostTextActionCreator } from "../../../redux/state";
 
 export type PropsType = {
 	posts: Array<PostType>
@@ -14,11 +14,11 @@ export const MyPosts: React.FC<PropsType> = ( props ) => {
 	let postsElements = props.posts.map ( p => <Post message={p.message} likeCounts={p.likeCounts}/> )
 	// добавление новой записи на стену
 	let addPost = () => {
-		props.dispatch ( { type: "ADD-POST", message: props.newPostText } )
+		props.dispatch ( addPostActionCreator(props.newPostText) )
 	}
 	// передача значения textarea в BLL
 	let onPostChange = ( e: ChangeEvent<HTMLTextAreaElement> ) => {
-		props.dispatch ( { type: "UPDATE-NEW-POST-TEXT", postText: e.currentTarget.value } )
+		props.dispatch ( updateNewPostTextActionCreator(e) )
 	}
 
 	return (

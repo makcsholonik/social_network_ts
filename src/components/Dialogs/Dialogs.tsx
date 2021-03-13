@@ -21,7 +21,7 @@ export const Dialogs: React.FC<PropsType> = ( props ) => {
 			</div>
 			<div className={s.dialogMessage}>
 				{messagesElements}
-				<textarea></textarea>
+				<textarea> </textarea>
 				<button>add</button>
 			</div>
 		</div>
