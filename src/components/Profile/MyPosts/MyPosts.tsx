@@ -14,11 +14,11 @@ export const MyPosts: React.FC<PropsType> = ( props ) => {
 	let postsElements = props.posts.map ( p => <Post message={p.message} likeCounts={p.likeCounts}/> )
 	// добавление новой записи на стену
 	let addPost = () => {
-		props.dispatch ( addPostActionCreator(props.newPostText) )
+		props.dispatch ( addPostActionCreator ( props.newPostText ) )
 	}
 	// передача значения textarea в BLL
 	let onPostChange = ( e: ChangeEvent<HTMLTextAreaElement> ) => {
-		props.dispatch ( updateNewPostTextActionCreator(e) )
+		props.dispatch ( updateNewPostTextActionCreator ( e ) )
 	}
 
 	return (

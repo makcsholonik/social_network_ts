@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { store } from "./redux/state";
+import { StateType, store } from "./redux/state";
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
 
-export let rerenderThree = () => {
+export let rerenderThree = ( state: StateType ) => {
 	ReactDOM.render (
 		<BrowserRouter>
 			<App
@@ -16,7 +16,7 @@ export let rerenderThree = () => {
 		</BrowserRouter>, document.getElementById ( 'root' ) )
 }
 
-rerenderThree ();
+rerenderThree ( store.getState () );
 store.subscribe ( rerenderThree );
 
 // If you want to start measuring performance in your app, pass a function

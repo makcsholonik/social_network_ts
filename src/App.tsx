@@ -22,7 +22,9 @@ export const App: React.FC<PropsType> = ( props ) => {
 																				newPostText={props.state.profilePage.newPostText}
 																				dispatch={props.dispatch.bind ( props.state )}/>}/>
 				<Route path={"/dialogs"} render={() => <Dialogs dialogs={props.state.dialogPage.dialogs}
-																				messages={props.state.dialogPage.messages}/>}/>
+																				messages={props.state.dialogPage.messages}
+																				dispatch={props.dispatch.bind ( props.state )}
+																				newMessageBody={props.state.dialogPage.newMessageBody}/>}/>
 			</div>
 		</div>
 	);
