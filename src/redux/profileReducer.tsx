@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import { ActionsTypes, PostType, ProfilePageType } from "./state";
+import { ActionsTypes, PostType, ProfilePageType } from "./store";
 import { ChangeEvent } from "react";
 
 export const ADD_POST = "ADD-POST";
@@ -9,13 +9,21 @@ export type ProfileReducerActionsTypes =
 	ReturnType<typeof addPostActionCreator>
 	| ReturnType<typeof updateNewPostTextActionCreator>
 
-export const profileReducer = ( state: ProfilePageType, action: ActionsTypes ) : ProfilePageType => {
+let initialState = {
+	posts:[
+		{ id:v1 (), message:"Hello, I'm fine.", likeCounts:30 },
+		{ id:v1 (), message:"Hello!", likeCounts:31 }
+	],
+	newPostText:""
+};
+
+export const profileReducer = ( state : ProfilePageType = initialState, action : ActionsTypes ) : ProfilePageType => {
 	switch (action.type) {
 		case ADD_POST:
-			let newPost: PostType = {
-				id: v1 (),
-				message: state.newPostText,
-				likeCounts: 0
+			let newPost : PostType = {
+				id:v1 (),
+				message:state.newPostText,
+				likeCounts:0
 			}
 			state.posts.push ( newPost );
 			state.newPostText = "";
@@ -28,15 +36,15 @@ export const profileReducer = ( state: ProfilePageType, action: ActionsTypes ) :
 	}
 }
 
-export const addPostActionCreator = ( newPostText: string ) => {
+export const addPostActionCreator = ( newPostText : string ) => {
 	return {
-		type: ADD_POST,
-		message: newPostText
+		type:ADD_POST,
+		message:newPostText
 	} as const
 }
-export const updateNewPostTextActionCreator = ( e: ChangeEvent<HTMLTextAreaElement> ) => {
+export const updateNewPostTextActionCreator = ( e : ChangeEvent<HTMLTextAreaElement> ) => {
 	return {
-		type: UPDATE_NEW_POST_TEXT,
-		postText: e.currentTarget.value
+		type:UPDATE_NEW_POST_TEXT,
+		postText:e.currentTarget.value
 	} as const
 }

@@ -5,7 +5,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { Route } from "react-router-dom";
 import { Profile } from "./components/Profile/Profile";
 import { Dialogs } from './components/Dialogs/Dialogs';
-import { ActionsTypes, StateType } from "./redux/state";
+import { ActionsTypes, StateType } from "./redux/store";
 
 type PropsType = {
 	state: StateType

@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { StateType, store } from "./redux/state";
+import { StateType } from "./redux/store";
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
+import { store } from "./redux/redux-store";
 
 export let rerenderThree = ( state: StateType ) => {
 	ReactDOM.render (
@@ -17,7 +18,11 @@ export let rerenderThree = ( state: StateType ) => {
 }
 
 rerenderThree ( store.getState () );
-store.subscribe ( rerenderThree );
+store.subscribe ( () => {
+	let state = store.getState ();
+	rerenderThree(state);
+
+} );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
