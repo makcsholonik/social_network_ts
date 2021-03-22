@@ -8,7 +8,9 @@ let reducers = combineReducers({
 	dialogReducer: dialogReducer
 })
 
-export let store = createStore();
+export type RootReduxState = ReturnType<typeof reducers>;
+export let store = createStore(reducers);
+//export type ReduxStoreType = typeof store
 
 
 

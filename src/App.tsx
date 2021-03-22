@@ -3,31 +3,30 @@ import './App.css';
 import { Header } from "./components/Header/Header";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Route } from "react-router-dom";
+import { ActionsTypes } from "./redux/store";
+import { Dialogs } from "./components/Dialogs/Dialogs";
 import { Profile } from "./components/Profile/Profile";
-import { Dialogs } from './components/Dialogs/Dialogs';
-import { ActionsTypes, StateType } from "./redux/store";
+import { RootReduxState } from "./redux/redux-store";
 
 type PropsType = {
-	state: StateType
-	dispatch: ( action: ActionsTypes ) => void
+	state : RootReduxState
+	dispatch : ( action : ActionsTypes ) => void
 }
 
-export const App: React.FC<PropsType> = ( props ) => {
+export const App = ( props : PropsType ) => {
 	return (
 		<div className="app-wrapper">
 			<Header/>
 			<Navbar/>
 			<div className="app-wrapper-content">
-				<Route path={"/profile"} render={() => <Profile posts={props.state.profilePage.posts}
-																				newPostText={props.state.profilePage.newPostText}
-																				dispatch={props.dispatch.bind ( props.state )}/>}/>
-				<Route path={"/dialogs"} render={() => <Dialogs dialogs={props.state.dialogPage.dialogs}
-																				messages={props.state.dialogPage.messages}
-																				dispatch={props.dispatch.bind ( props.state )}
-																				newMessageBody={props.state.dialogPage.newMessageBody}/>}/>
+				<Route path={ "/profile" } render={ () => <Profile posts={ props.state.profileReducer.posts }
+																					newPostText={ props.state.profileReducer.newPostText }
+																					dispatch={ props.dispatch.bind ( props.state ) }/> }/>
+				<Route path={ "/dialogs" } render={ () => <Dialogs dialogs={ props.state.dialogReducer.dialogs }
+																					messages={ props.state.dialogReducer.messages }
+																					dispatch={ props.dispatch.bind ( props.state ) }
+																					newMessageBody={ props.state.dialogReducer.newMessageBody }/> }/>
 			</div>
 		</div>
 	);
 }
-
-export default App;

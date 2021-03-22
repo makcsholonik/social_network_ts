@@ -2,17 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { StateType } from "./redux/store";
-import App from './App';
+import { App } from './App';
 import { BrowserRouter } from "react-router-dom";
-import { store } from "./redux/redux-store";
+import { RootReduxState, store } from "./redux/redux-store";
 
-export let rerenderThree = ( state: StateType ) => {
+
+export let rerenderThree = ( state : RootReduxState ) => {
 	ReactDOM.render (
 		<BrowserRouter>
 			<App
-				state={store.getState ()}
-				dispatch={store.dispatch.bind ( store )}
+				state={ store.getState () }
+				dispatch={ store.dispatch.bind ( store ) }
 			/>
 		</BrowserRouter>, document.getElementById ( 'root' ) )
 }
@@ -20,7 +20,7 @@ export let rerenderThree = ( state: StateType ) => {
 rerenderThree ( store.getState () );
 store.subscribe ( () => {
 	let state = store.getState ();
-	rerenderThree(state);
+	rerenderThree ( state );
 
 } );
 

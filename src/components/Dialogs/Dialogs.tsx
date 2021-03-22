@@ -12,7 +12,7 @@ type PropsType = {
 	newMessageBody: string
 }
 
-export const Dialogs: React.FC<PropsType> = ( props ) => {
+export const Dialogs = ( props: PropsType ) => {
 
 	let dialogsElements = props.dialogs.map ( d => <DialogItemUser key={d.id} id={d.id} name={d.name}/> );
 	let messagesElements = props.messages.map ( m => <DialogMessage key={m.id} message={m.message}/> );
