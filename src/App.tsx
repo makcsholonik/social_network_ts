@@ -4,9 +4,9 @@ import { Header } from "./components/Header/Header";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Route } from "react-router-dom";
 import { ActionsTypes } from "./redux/store";
-import { Dialogs } from "./components/Dialogs/Dialogs";
 import { Profile } from "./components/Profile/Profile";
 import { RootReduxState } from "./redux/redux-store";
+import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 
 type PropsType = {
 	state : RootReduxState
@@ -22,10 +22,10 @@ export const App = ( props : PropsType ) => {
 				<Route path={ "/profile" } render={ () => <Profile posts={ props.state.profileReducer.posts }
 																					newPostText={ props.state.profileReducer.newPostText }
 																					dispatch={ props.dispatch.bind ( props.state ) }/> }/>
-				<Route path={ "/dialogs" } render={ () => <Dialogs dialogs={ props.state.dialogReducer.dialogs }
-																					messages={ props.state.dialogReducer.messages }
-																					dispatch={ props.dispatch.bind ( props.state ) }
-																					newMessageBody={ props.state.dialogReducer.newMessageBody }/> }/>
+				<Route path={ "/dialogs" } render={ () => <DialogsContainer dialogs={ props.state.dialogReducer.dialogs }
+																								messages={ props.state.dialogReducer.messages }
+																								dispatch={ props.dispatch.bind ( props.state ) }
+																								newMessageBody={ props.state.dialogReducer.newMessageBody }/> }/>
 			</div>
 		</div>
 	);

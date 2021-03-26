@@ -6,8 +6,8 @@ export const ADD_POST = "ADD-POST";
 export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
 export type ProfileReducerActionsTypes =
-	ReturnType<typeof addPostActionCreator>
-	| ReturnType<typeof updateNewPostTextActionCreator>
+	ReturnType<typeof addPostAC>
+	| ReturnType<typeof updateNewPostTextAC>
 
 let initialState = {
 	posts:[
@@ -36,15 +36,14 @@ export const profileReducer = ( state : ProfilePageType = initialState, action :
 	}
 }
 
-export const addPostActionCreator = ( newPostText : string ) => {
+export const addPostAC = (  ) => {
 	return {
 		type:ADD_POST,
-		message:newPostText
 	} as const
 }
-export const updateNewPostTextActionCreator = ( e : ChangeEvent<HTMLTextAreaElement> ) => {
+export const updateNewPostTextAC = ( text : string ) => {
 	return {
 		type:UPDATE_NEW_POST_TEXT,
-		postText:e.currentTarget.value
+		postText:text
 	} as const
 }
