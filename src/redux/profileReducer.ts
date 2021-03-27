@@ -1,23 +1,26 @@
 import { v1 } from "uuid";
-import { ActionsTypes, PostType, ProfilePageType } from "./store";
-import { ChangeEvent } from "react";
 
-export const ADD_POST = "ADD-POST";
-export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-
-export type ProfileReducerActionsTypes =
-	ReturnType<typeof addPostAC>
-	| ReturnType<typeof updateNewPostTextAC>
+export type PostType = {
+	id: string
+	message: string
+	likeCounts: number
+}
 
 let initialState = {
 	posts:[
 		{ id:v1 (), message:"Hello, I'm fine.", likeCounts:30 },
 		{ id:v1 (), message:"Hello!", likeCounts:31 }
-	],
+	] as Array<PostType>,
 	newPostText:""
 };
 
-export const profileReducer = ( state : ProfilePageType = initialState, action : ActionsTypes ) : ProfilePageType => {
+type InitialStateProfileType = typeof initialState;
+
+export type ProfileReducerActionsTypes =
+	ReturnType<typeof addPostAC>
+	| ReturnType<typeof updateNewPostTextAC>
+
+export const profileReducer = ( state : InitialStateProfileType = initialState, action : ProfileReducerActionsTypes ) : InitialStateProfileType => {
 	switch (action.type) {
 		case ADD_POST:
 			let newPost : PostType = {
@@ -35,6 +38,9 @@ export const profileReducer = ( state : ProfilePageType = initialState, action :
 			return state;
 	}
 }
+
+export const ADD_POST = "ADD-POST";
+export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
 export const addPostAC = (  ) => {
 	return {

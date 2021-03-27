@@ -4,16 +4,16 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { App } from './App';
 import { BrowserRouter } from "react-router-dom";
-import { RootReduxState, store } from "./redux/redux-store";
+import { AppStateType, store } from "./redux/redux-store";
+import { Provider } from "react-redux";
 
 
-export let rerenderThree = ( state : RootReduxState ) => {
+export let rerenderThree = ( state : AppStateType ) => {
 	ReactDOM.render (
 		<BrowserRouter>
-			<App
-				state={ store.getState () }
-				dispatch={ store.dispatch.bind ( store ) }
-			/>
+			<Provider store={ store }>
+				<App/>
+			</Provider>
 		</BrowserRouter>, document.getElementById ( 'root' ) )
 }
 

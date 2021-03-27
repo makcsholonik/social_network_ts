@@ -1,27 +1,37 @@
 import React from 'react';
-import { ActionsTypes, PostType } from "../../../redux/store";
-import { addPostAC, updateNewPostTextAC } from "../../../redux/profileReducer";
+import { addPostAC, PostType, updateNewPostTextAC } from "../../../redux/profileReducer";
 import { MyPosts } from './MyPosts';
+import { connect } from "react-redux";
+import { AppStateType } from "../../../redux/redux-store";
+import { Dispatch } from "redux";
 
-export type PropsType = {
+type MapStatePropsType = {
 	posts : Array<PostType>
 	newPostText : string
-	dispatch : ( action : ActionsTypes ) => void
+}
+type MapDispatchPropsType = {
+	addPost : () => void
+	onPostChange : ( text : string ) => void
 }
 
-export const MyPostsContainer = ( props : PropsType ) => {
+export type MyPostPropsType = MapStatePropsType & MapDispatchPropsType
 
-	// добавление новой записи на стену
-	let addPost = () => {
-		props.dispatch ( addPostAC () )
+let mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
+	return {
+		posts:state.profileReducer.posts,
+		newPostText:state.profileReducer.newPostText
 	}
-	// передача значения textarea в BLL
-	let onPostChange = ( text : string ) => {
-		props.dispatch ( updateNewPostTextAC ( text ) )
-	}
-
-	return (
-		<MyPosts onPostChange={ onPostChange } addPost={ addPost } posts={ props.posts }
-					newPostText={ props.newPostText }/>
-	);
 }
+
+let mapDispatchToProps = ( dispatch : Dispatch ) : MapDispatchPropsType => {
+	return {
+		addPost:() => {
+			dispatch ( addPostAC () )
+		},
+		onPostChange:( text : string ) => {
+			dispatch ( updateNewPostTextAC ( text ) )
+		}
+	}
+}
+
+export const MyPostsContainer = connect ( mapStateToProps, mapDispatchToProps ) ( MyPosts )
