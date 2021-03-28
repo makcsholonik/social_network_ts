@@ -1,9 +1,9 @@
 import { v1 } from "uuid";
 
 export type PostType = {
-	id: string
-	message: string
-	likeCounts: number
+	id : string
+	message : string
+	likeCounts : number
 }
 
 let initialState = {
@@ -22,18 +22,23 @@ export type ProfileReducerActionsTypes =
 
 export const profileReducer = ( state : InitialStateProfileType = initialState, action : ProfileReducerActionsTypes ) : InitialStateProfileType => {
 	switch (action.type) {
-		case ADD_POST:
+		case ADD_POST: {
 			let newPost : PostType = {
 				id:v1 (),
 				message:state.newPostText,
 				likeCounts:0
 			}
-			state.posts.push ( newPost );
-			state.newPostText = "";
-			return state;
-		case UPDATE_NEW_POST_TEXT:
-			state.newPostText = action.postText;
-			return state;
+			let stateCopy = { ...state };
+			stateCopy.posts = [...state.posts];
+			stateCopy.posts.push ( newPost );
+			stateCopy.newPostText = "";
+			return stateCopy;
+		}
+		case UPDATE_NEW_POST_TEXT: {
+			let stateCopy = { ...state }
+			stateCopy.newPostText = action.postText;
+			return stateCopy;
+		}
 		default:
 			return state;
 	}
@@ -42,7 +47,7 @@ export const profileReducer = ( state : InitialStateProfileType = initialState, 
 export const ADD_POST = "ADD-POST";
 export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
-export const addPostAC = (  ) => {
+export const addPostAC = () => {
 	return {
 		type:ADD_POST,
 	} as const
