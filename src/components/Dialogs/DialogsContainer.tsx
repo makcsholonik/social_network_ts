@@ -10,35 +10,35 @@ import { Dispatch } from "redux";
 // данные из объектов mapStateToProps и mapDispatchToProps
 
 type MapStatePropsType = {
-	dialogs: Array<DialogsType>
-	messages: Array<MessagesType>
-	newMessageBody: string
+	dialogs : Array<DialogsType>
+	messages : Array<MessagesType>
+	newMessageBody : string
 }
 
 type MapDispatchPropsType = {
-	onNewMessageChange:( body : string ) => void
-	onSendMessageClick:() => void
+	onNewMessageChange : ( body : string ) => void
+	onSendMessageClick : () => void
 }
 
 export type DialogsPropsType = MapStatePropsType & MapDispatchPropsType
 
-const mapStateToProps = ( state : AppStateType ): MapStatePropsType => {
+const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	return {
-		dialogs:state.dialogReducer.dialogs,
-		messages:state.dialogReducer.messages,
-		newMessageBody:state.dialogReducer.newMessageBody
+		dialogs : state.dialogPage.dialogs,
+		messages : state.dialogPage.messages,
+		newMessageBody : state.dialogPage.newMessageBody
 	}
 }
-const mapDispatchToProps = ( dispatch : Dispatch ): MapDispatchPropsType => {
+const mapDispatchToProps = ( dispatch : Dispatch ) : MapDispatchPropsType => {
 	return {
-		onNewMessageChange:( body : string ) => {
+		onNewMessageChange : ( body : string ) => {
 			dispatch ( updateNewMessageBodyAC ( body ) )
 		},
-		onSendMessageClick:() => {
+		onSendMessageClick : () => {
 			dispatch ( sendMessageAC () );
 		}
 	}
 }
 
- export const DialogsContainer = connect (mapStateToProps, mapDispatchToProps) ( Dialogs );
+export const DialogsContainer = connect ( mapStateToProps, mapDispatchToProps ) ( Dialogs );
 

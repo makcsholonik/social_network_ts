@@ -18,8 +18,8 @@ export type MyPostPropsType = MapStatePropsType & MapDispatchPropsType
 
 let mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	return {
-		posts:state.profileReducer.posts,
-		newPostText:state.profileReducer.newPostText
+		posts:state.profilePage.posts,
+		newPostText:state.profilePage.newPostText
 	}
 }
 
