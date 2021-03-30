@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { UsersPropsType } from "./UsersContainer";
 import cl from './Users.module.css'
 import { v1 } from "uuid";
 
 export const Users = ( props : UsersPropsType ) => {
 
+	// если пользователей нет, только тогда их отрисовываем, чтобы не было зацикленности
+	if (props.userPage.users.length === 0) {
 	props.setUsers ( [
 		{
 			id : v1 (),
@@ -30,12 +32,12 @@ export const Users = ( props : UsersPropsType ) => {
 			status : 'inactive',
 			location : { id : v1 (), city : 'Berlin', country : 'Germany' }
 		}]
-	)
+	)}
 
 	return (
 		<div>
 			{
-				props.users.map ( u => <div key={ u.id }>
+				props.userPage.users.map ( u => <div key={ u.id }>
 					<span>
 						<div>
 							<img src={ u.photoUrl } alt="freeman" className={ cl.userPhoto }/>

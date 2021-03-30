@@ -16,9 +16,7 @@ let initialState = {
 
 type InitialStateProfileType = typeof initialState;
 
-export type ProfileReducerActionsTypes =
-	ReturnType<typeof addPostAC>
-	| ReturnType<typeof updateNewPostTextAC>
+export type ProfileReducerActionsTypes =	ReturnType<typeof addPostAC>	| ReturnType<typeof updateNewPostTextAC>
 
 export const profileReducer = ( state : InitialStateProfileType = initialState, action : ProfileReducerActionsTypes ) : InitialStateProfileType => {
 	switch (action.type) {
