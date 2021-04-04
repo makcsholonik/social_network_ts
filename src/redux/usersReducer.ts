@@ -32,6 +32,7 @@ export const usersReducer = ( state : InitialStateUserType = initialState, actio
 				users : state.users.map ( u => {
 					if (u.id === action.userId)
 						return { ...u, followed : true }
+					return u;
 				} )
 			}
 		case UNFOLLOW:
@@ -40,6 +41,7 @@ export const usersReducer = ( state : InitialStateUserType = initialState, actio
 				users : state.users.map ( u => {
 					if (u.id === action.userId)
 						return { ...u, followed : false }
+					return u;
 				} )
 			}
 		case SET_USERS:

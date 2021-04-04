@@ -17,7 +17,6 @@ export const App = () => {
 				<Route path={ "/profile" } render={ () => <Profile/> }/>
 				<Route path={ "/dialogs" } render={ () => <DialogsContainer/> }/>
 				<Route path={ "/users" } render={ () => <UsersContainer/> }/>
-
 			</div>
 		</div>
 	);
