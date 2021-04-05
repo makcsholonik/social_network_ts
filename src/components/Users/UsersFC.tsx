@@ -4,21 +4,18 @@ import cl from './Users.module.css';
 import axios from "axios";
 import userPhoto from "../../assets/img/users.png";
 
-export class Users extends React.Component<UsersPropsType, any> {
+const Users = ( props : UsersPropsType ) => {
 
-	constructor ( props : UsersPropsType ) {
-		super ( props );
-
+	if (props.userPage.users.length === 0) {
 		axios.get ( "https://social-network.samuraijs.com/api/1.0/users" ).then ( response => {
-			this.props.setUsers ( response.data.items )
+			props.setUsers ( response.data.items )
 		} )
 	}
 
-	render () {
-		return (
-			<div>
-				{
-					this.props.userPage.users.map ( u => <div key={ u.id }>
+	return (
+		<div>
+			{
+				props.userPage.users.map ( u => <div key={ u.id }>
 					<span>
 						<div>
 							<img
@@ -29,11 +26,11 @@ export class Users extends React.Component<UsersPropsType, any> {
 						</div>
 						<div>
 							{ u.followed
-								? <button onClick={ () => {this.props.unFollow ( u.id )} }>Unfollow</button>
-								: <button onClick={ () => {this.props.follow ( u.id )} }>Follow</button> }
+								? <button onClick={ () => {props.unFollow ( u.id )} }>Unfollow</button>
+								: <button onClick={ () => {props.follow ( u.id )} }>Follow</button> }
 						</div>
 					</span>
-						<span>
+					<span>
 						<span>
 							<div>{ u.name }</div>
 							<div>{ u.status }</div>
@@ -43,9 +40,8 @@ export class Users extends React.Component<UsersPropsType, any> {
 							<div>{ "u.location.city" }</div>
 						</span>
 					</span>
-					</div> )
-				}
-			</div>
-		)
-	}
+				</div> )
+			}
+		</div>
+	)
 }
