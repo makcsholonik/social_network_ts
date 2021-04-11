@@ -15,7 +15,7 @@ export type UserType = {
 
 const initialState = {
 	users : [] as Array<any>,
-	pageSize : 10, // кол-во пользователей на 1 стр.
+	pageSize : 5, // кол-во пользователей на 1 стр.
 	totalUsersCount : 0, // всего пользователей
 	currentPage : 1 // текущая страница пришедшая с сервера
 }
