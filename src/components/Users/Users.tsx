@@ -10,7 +10,7 @@ type PropsUserType = {
 	onPageChanged : any // support
 	userPage : InitialStateUserType
 	follow : ( userId : string ) => void
-	unFollow : ( userId : string ) => void
+	unfollow : ( userId : string ) => void
 }
 
 export const Users = ( props : PropsUserType ) => {
@@ -27,8 +27,6 @@ export const Users = ( props : PropsUserType ) => {
 				{ pages.map ( p => {
 
 					return (
-						// support
-						// @ts-ignore
 						<span className={ props.currentPage === p && cl.selectedPage }
 								onClick={ ( e ) => { props.onPageChanged ( p )} }>
 							{ p }
@@ -47,7 +45,7 @@ export const Users = ( props : PropsUserType ) => {
 						</div>
 						<div>
 							{ u.followed
-								? <button onClick={ () => {props.unFollow ( u.id )} }>Unfollow</button>
+								? <button onClick={ () => {props.unfollow ( u.id )} }>Unfollow</button>
 								: <button onClick={ () => {props.follow ( u.id )} }>Follow</button> }
 						</div>
 					</span>
