@@ -14,7 +14,6 @@ import {
 	unfollow, UserType
 } from "../../redux/usersReducer";
 
-
 class UsersAPI extends React.Component<UsersPropsType, any> {
 
 	componentDidMount () {
@@ -105,5 +104,4 @@ const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 }*/
 
 
-export const UsersContainer =  connect ( mapStateToProps,
-	follow, unfollow, setUsers, setCurrentPage, setTotalUserCounts, toggleIsFetching ) ( UsersAPI );
+export const UsersContainer =  connect ( mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUserCounts, toggleIsFetching} ) ( UsersAPI );
