@@ -14,7 +14,7 @@ import {
 	unfollow, UserType
 } from "../../redux/usersReducer";
 
-class UsersAPI extends React.Component<UsersPropsType, any> {
+class UsersContainer extends React.Component<UsersPropsType> {
 
 	componentDidMount () {
 		this.props.toggleIsFetching ( true );
@@ -80,28 +80,5 @@ const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 		isFetching : state.usersPage.isFetching
 	}
 }
-/*const mapDispatchToProps = ( dispatch : Dispatch ) : MapDispatchPropsType => {
-	return {
-		follow : ( userId : string ) => {
-			dispatch ( followAC ( userId ) )
-		},
-		unFollow : ( userId : string ) => {
-			dispatch ( unFollowAC ( userId ) )
-		},
-		setUsers : ( users : Array<UserType> ) => {
-			dispatch ( setUsersAC ( users ) )
-		},
-		setCurrentPage : ( pageNumber : number ) => {
-			dispatch ( setCurrentPageAC ( pageNumber ) )
-		},
-		setTotalUserCounts : ( totalCount : number ) => {
-			dispatch ( setTotalUserCountsAC ( totalCount ) )
-		},
-		toggleIsFetching : ( isFetching : boolean ) => {
-			dispatch ( toggleIsFetchingAC ( isFetching ) )
-		}
-	}
-}*/
 
-
-export const UsersContainer =  connect ( mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUserCounts, toggleIsFetching} ) ( UsersAPI );
+export default connect ( mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUserCounts, toggleIsFetching} ) ( UsersContainer );
