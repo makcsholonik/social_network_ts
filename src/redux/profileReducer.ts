@@ -6,13 +6,40 @@ export type PostType = {
 	likeCounts : number
 }
 
+type ObjectType = {
+	github: string
+	vk: string
+	facebook: string
+	instagram: string
+	twitter: string
+	website: string
+	youtube: string
+	mainLink: string
+}
+
+type PhotosType = {
+	small: string
+	large: string
+}
+
+export type ProfileType = {
+	userId: number
+	lookingForAJob: boolean
+	lookingForAJobDescription: string
+	fullName: string
+	contacts: ObjectType
+	photos: PhotosType
+}
+
+
 let initialState = {
 	posts : [
 		{ id : v1 (), message : "Hello, I'm fine.", likeCounts : 30 },
 		{ id : v1 (), message : "Hello!", likeCounts : 31 }
 	] as Array<PostType>,
 	newPostText : "",
-	profile: null
+	// @ts-ignore
+	profile: null as ProfileType
 };
 
 type InitialStateProfileType = typeof initialState;
@@ -46,4 +73,4 @@ export const SET_USER_PROFILE = "SET-USER-PROFILE";
 
 export const addPostAC = () => ({ type : ADD_POST, } as const);
 export const updateNewPostTextAC = ( text : string ) => ({ type : UPDATE_NEW_POST_TEXT, postText : text } as const);
-export const setUserProfile = ( profile : null ) => ({ type : SET_USER_PROFILE, profile } as const);
+export const setUserProfile = ( profile : any) => ({ type : SET_USER_PROFILE, profile } as const);
