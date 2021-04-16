@@ -4,7 +4,7 @@ import { Preloader } from "../../common/Preloader/Preloader";
 import { ProfileType } from "../../../redux/profileReducer";
 
 type PropsProfileInfoType = {
-	profile : ProfileType
+	profile : ProfileType | null
 }
 
 
@@ -17,10 +17,10 @@ export const ProfileInfo = ( props : PropsProfileInfoType ) => {
 			<div>
 				<img
 					src="https://image.freepik.com/free-vector/nature-background-with-mountain-and-field_104785-409.jpg"
-					alt=""/>
+					alt="profile avatar"/>
 			</div>
 			<div className={ s.description }>
-				<img src={ props.profile.photos.small } alt=""/>
+				<img src={ props.profile.photos.large } alt=""/>
 				avatar + description
 			</div>
 		</div>
