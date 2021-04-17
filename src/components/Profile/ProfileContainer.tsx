@@ -28,11 +28,9 @@ export class ProfileContainer extends React.Component<PropsType> {
 	componentDidMount () {
 		debugger
 		let userId  = this.props.match.params.userId;
-
 		if (!userId) {
 			userId = '2'
 		}
-
 		axios.get ( `https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then ( response => {
 			this.props.setUserProfile ( response.data );
 		} );
