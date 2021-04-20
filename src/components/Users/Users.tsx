@@ -26,7 +26,6 @@ export const Users = ( props : PropsUserType ) => {
 		<div>
 			<div>
 				{ pages.map ( p => {
-
 					return (
 						<span className={ props.currentPage === p ? cl.selectedPage: '' }
 								onClick={ ( e ) => { props.onPageChanged ( p )} }>

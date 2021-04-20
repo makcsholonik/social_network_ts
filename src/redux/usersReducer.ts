@@ -1,25 +1,34 @@
+type PhotosType = {
+	small: string
+	large: string
+}
+
 type LocationType = {
 	id : string
 	city : string
 	country : string
 }
 
-export type UserType = {
+export type ItemsType = {
 	id : string
-	photoUrl : string
-	followed : boolean,
-	fullName : string
+	name: string
 	status : string
-	location : LocationType
+	photos: PhotosType
+	followed : boolean,
+}
+
+export type UserType = {
+	items: Array<ItemsType>
+	totalCount: number
+	error: string
 }
 
 const initialState = {
-	users : [] as Array<any>,
+	users : [] as Array<ItemsType>,
 	pageSize : 5, // кол-во пользователей на 1 стр.
 	totalUsersCount : 0, // всего пользователей
 	currentPage : 1, // текущая страница пришедшая с сервера
 	isFetching : false,
-
 }
 
 export type InitialStateUserType = typeof initialState;
@@ -74,7 +83,7 @@ export const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 
 export const follow = ( userId : string ) => ({ type : FOLLOW, userId } as const);
 export const unfollow = ( userId : string ) => ({ type : UNFOLLOW, userId } as const);
-export const setUsers = ( users : Array<UserType> ) => ({ type : SET_USERS, users } as const);
+export const setUsers = ( users : Array<ItemsType> ) => ({ type : SET_USERS, users } as const);
 export const setCurrentPage = ( currentPage : number ) => ({ type : SET_CURRENT_PAGE, currentPage } as const);
 export const setTotalUserCounts = ( totalCount : number ) => ({ type : SET_TOTAL_USER_COUNT, totalCount } as const);
 export const toggleIsFetching = ( isFetching : boolean ) => ({ type : TOGGLE_IS_FETCHING, isFetching } as const);

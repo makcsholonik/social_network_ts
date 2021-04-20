@@ -2,7 +2,7 @@ import React from 'react';
 import { Header } from "./Header";
 import axios from "axios";
 import { connect } from 'react-redux';
-import { DataType, InitialStateAuthType, setAuthUserData } from '../../redux/authReducer';
+import { setAuthUserData } from '../../redux/authReducer';
 import { AppStateType } from "../../redux/redux-store";
 
 class HeaderContainer extends React.Component<HeaderPropsType> {
@@ -12,7 +12,7 @@ class HeaderContainer extends React.Component<HeaderPropsType> {
 			withCredentials : true
 		} ).then ( response => {
 			if (response.data.resultCode === 0) {
-				let {id, email, login} = response.data.data; // support - это вообще что?
+				let {id, email, login} = response.data.data;
 				this.props.setAuthUserData(id, email, login);
 			}
 		} );
@@ -20,7 +20,6 @@ class HeaderContainer extends React.Component<HeaderPropsType> {
 
 	render () {
 		return (
-			// support - типизация
 			<div>
 				<Header { ...this.props }/>
 			</div>
@@ -30,11 +29,11 @@ class HeaderContainer extends React.Component<HeaderPropsType> {
 
 type MapStatePropsType = {
 	isAuth: boolean
-	login: InitialStateAuthType
+	login: string
 }
 
 type MapDispatchPropsType = {
-	setUserData : ( data : Array<DataType> ) => void
+	setAuthUserData : ( id : number, email : string, login : string ) => void
 }
 
 export type HeaderPropsType = MapStatePropsType & MapDispatchPropsType
@@ -42,7 +41,7 @@ export type HeaderPropsType = MapStatePropsType & MapDispatchPropsType
 const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	return {
 		isAuth: state.auth.isAuth,
-		login: state.auth.data.login
+		login: state.auth.login || ""
 	}
 }
 

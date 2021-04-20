@@ -11,7 +11,7 @@ import {
 	setTotalUserCounts,
 	setUsers,
 	toggleIsFetching,
-	unfollow, UserType
+	unfollow, ItemsType
 } from "../../redux/usersReducer";
 
 class UsersContainer extends React.Component<UsersPropsType> {
@@ -63,7 +63,7 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
 	follow : ( userId : string ) => void
 	unfollow : ( userId : string ) => void
-	setUsers : ( users : Array<UserType> ) => void
+	setUsers : ( users : Array<ItemsType> ) => void
 	setCurrentPage : ( pageNumber : number ) => void
 	setTotalUserCounts : ( totalCount : number ) => void
 	toggleIsFetching : ( isFetching : boolean ) => void

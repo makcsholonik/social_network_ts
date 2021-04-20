@@ -1,31 +1,23 @@
-// object
-// id: number
-// email: string
-// login: string
-//
-// data: object
-// resultCode: number
-// messages: string
-// где описывать GET
-
 export type DataType = {
 	id : number
 	email : string
 	login : string
-	isAuth: boolean
 }
 
-// support - полоса прокрутки
-// support - id,email,login или data
+export type AuthType = {
+	data : DataType
+	resultCode : number
+	messages : Array<string>
+}
+
 let initialState = {
-	// id : null,
-	// email : null,
-	// login : null
-	data : null as Array<DataType> | null,
-	isAuth: false
+	id : null as number | null,
+	email : null as string | null,
+	login : null as string | null,
+	isAuth : false
 }
 
-export type InitialStateAuthType = typeof initialState;
+export type InitialStateAuthType = typeof initialState
 
 export type AuthReducerActionsTypes = ReturnType<typeof setAuthUserData>
 
@@ -34,7 +26,7 @@ export const authReducer = ( state : InitialStateAuthType = initialState, action
 		case SET_USER_DATA:
 			return {
 				...state,
-				...state.data,
+				...action.data,
 				isAuth : true
 			}
 		default:
@@ -44,7 +36,7 @@ export const authReducer = ( state : InitialStateAuthType = initialState, action
 
 export const SET_USER_DATA = "SET-USER-DATA";
 
-export const setAuthUserData = ( id : number, email : string, login : string ) => ({
+export const setAuthUserData = ( id : number, email : string, login : string, ) => ({
 	type : SET_USER_DATA,
 	data : { id, email, login }
 } as const);
