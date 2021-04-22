@@ -18,7 +18,9 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
 	componentDidMount () {
 		this.props.toggleIsFetching ( true );
-		axios.get ( `https://social-network.samuraijs.com/api/1.0/users?page=${ this.props.currentPage }&count=${ this.props.pageSize }` ).then ( response => {
+		axios.get ( `https://social-network.samuraijs.com/api/1.0/users?page=${ this.props.currentPage }&count=${ this.props.pageSize }`, {
+			withCredentials : true
+		} ).then ( response => {
 			this.props.toggleIsFetching ( false );
 			this.props.setUsers ( response.data.items );
 			this.props.setTotalUserCounts ( response.data.totalCount );
@@ -28,7 +30,9 @@ class UsersContainer extends React.Component<UsersPropsType> {
 	onPageChanged = ( pageNumber : number ) => {
 		this.props.toggleIsFetching ( true );
 		this.props.setCurrentPage ( pageNumber );
-		axios.get ( `https://social-network.samuraijs.com/api/1.0/users?page=${ pageNumber }&count=${ this.props.pageSize }` ).then ( response => {
+		axios.get ( `https://social-network.samuraijs.com/api/1.0/users?page=${ pageNumber }&count=${ this.props.pageSize }`, {
+			withCredentials : true
+		} ).then ( response => {
 			this.props.toggleIsFetching ( false );
 			this.props.setUsers ( response.data.items )
 		} );
@@ -81,4 +85,11 @@ const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	}
 }
 
-export default connect ( mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUserCounts, toggleIsFetching} ) ( UsersContainer );
+export default connect ( mapStateToProps, {
+	follow,
+	unfollow,
+	setUsers,
+	setCurrentPage,
+	setTotalUserCounts,
+	toggleIsFetching
+} ) ( UsersContainer );

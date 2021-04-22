@@ -3,6 +3,7 @@ import cl from './Users.module.css';
 import userPhoto from "../../assets/img/users.png";
 import { InitialStateUserType } from "../../redux/usersReducer";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 type PropsUserType = {
 	totalUsersCount : number
@@ -27,7 +28,7 @@ export const Users = ( props : PropsUserType ) => {
 			<div>
 				{ pages.map ( p => {
 					return (
-						<span className={ props.currentPage === p ? cl.selectedPage: '' }
+						<span className={ props.currentPage === p ? cl.selectedPage : '' }
 								onClick={ ( e ) => { props.onPageChanged ( p )} }>
 							{ p }
 						</span>)
@@ -37,7 +38,7 @@ export const Users = ( props : PropsUserType ) => {
 				props.userPage.users.map ( u => <div key={ u.id }>
 					<span>
 						<div>
-							<NavLink to={'./profile/' + u.id}>
+							<NavLink to={ './profile/' + u.id }>
 								<img
 									src={ u.photos.small !== null ? u.photos.small : userPhoto }
 									alt=''
@@ -47,8 +48,33 @@ export const Users = ( props : PropsUserType ) => {
 						</div>
 						<div>
 							{ u.followed
-								? <button onClick={ () => {props.unfollow ( u.id )} }>Unfollow</button>
-								: <button onClick={ () => {props.follow ( u.id )} }>Follow</button> }
+								? <button onClick={ () => {
+									axios.delete ( `https://social-network.samuraijs.com/api/1.0/follow/${ u.id }`, {
+										withCredentials : true,
+										headers : {
+											"API-KEY" : "f0cc0942-0306-4a5b-86b9-c3852c7f7cf3"
+										}
+									} ).then ( response => {
+										if (response.data.resultCode === 0) {
+											props.unfollow ( u.id )
+										}
+									} );
+								}
+								}>Unfollow</button>
+								: <button onClick={ () => {
+									axios.post ( `https://social-network.samuraijs.com/api/1.0/follow/${ u.id }`, {}, {
+										withCredentials : true,
+										headers : {
+											"API-KEY" : "f0cc0942-0306-4a5b-86b9-c3852c7f7cf3"
+										}
+									} ).then ( response => {
+										// если подписка произошла должны вызвать callback follow
+										if (response.data.resultCode === 0) {
+											props.follow ( u.id )
+										}
+									} );
+								}
+								}>Follow</button> }
 						</div>
 					</span>
 					<span>
