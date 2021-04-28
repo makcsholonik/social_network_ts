@@ -10,10 +10,7 @@ type PropsUserType = {
 	currentPage : number
 	onPageChanged : any // support
 	userPage : InitialStateUserType
-	// followSuccess : ( userId : string ) => void
-	// unfollowSuccess : ( userId : string ) => void
 	followingInProgress : Array<string>
-	// toggleFollowingProgress : ( isFetching : boolean, userId : string ) => void
 	follow : ( id : string ) => void
 	unfollow : ( id : string ) => void
 }
@@ -53,25 +50,10 @@ export const Users = ( props : PropsUserType ) => {
 							{ u.followed
 								? <button disabled={ props.followingInProgress.some ( id => id === u.id ) } onClick={ () => {
 									props.unfollow ( u.id );
-									// props.toggleFollowingProgress ( true, u.id );
-									// usersAPI.unfollow ( u.id ).then ( response => {
-									// 	if (response.data.resultCode === 0) {
-									// 		props.unfollowSuccess ( u.id )
-									// 	}
-									// 	props.toggleFollowingProgress ( false, u.id );
-									// } );
 								}
 								}>Unfollow</button>
 								: <button disabled={ props.followingInProgress.some ( id => id === u.id ) } onClick={ () => {
 									props.follow ( u.id );
-									// props.toggleFollowingProgress ( true, u.id );
-									// usersAPI.follow ( u.id ).then ( response => {
-									// 	// если подписка произошла должны вызвать callback follow
-									// 	if (response.data.resultCode === 0) {
-									// 		props.followSuccess ( u.id )
-									// 	}
-									// 	props.toggleFollowingProgress ( false, u.id );
-									// } );
 								}
 								}>Follow</button> }
 						</div>

@@ -9,22 +9,10 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
 	componentDidMount () {
 		this.props.getUser ( this.props.currentPage, this.props.pageSize );
-		// this.props.toggleIsFetching ( true );
-		// getUsers ( this.props.currentPage, this.props.pageSize ).then ( data => {
-		// 	this.props.toggleIsFetching ( false );
-		// 	this.props.setUsers ( data.items );
-		// 	this.props.setTotalUserCounts ( data.totalCount );
-		// } );
 	}
 
 	onPageChanged = ( pageNumber : number ) => {
 		this.props.getUser ( pageNumber, this.props.pageSize );
-		// this.props.toggleIsFetching ( true );
-		// this.props.setCurrentPage ( pageNumber );
-		// getUsers ( pageNumber, this.props.pageSize ).then ( data => {
-		// 	this.props.toggleIsFetching ( false );
-		// 	this.props.setUsers ( data.items )
-		// } );
 	}
 
 	render () {
@@ -37,10 +25,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
 					currentPage={ this.props.currentPage }
 					onPageChanged={ this.onPageChanged }
 					userPage={ this.props.userPage }
-					// followSuccess={ this.props.followSuccess }
-					// unfollowSuccess={ this.props.unfollowSuccess }
 					followingInProgress={ this.props.followingInProgress }
-					// toggleFollowingProgress={ this.props.toggleFollowingProgress }
 					follow={this.props.follow}
 					unfollow={this.props.unfollow}
 				/>
@@ -59,12 +44,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-	// followSuccess : ( userId : string ) => void
-	// unfollowSuccess : ( userId : string ) => void
-	// setUsers : ( users : Array<ItemsType> ) => void
 	setCurrentPage : ( pageNumber : number ) => void
-	// setTotalUserCounts : ( totalCount : number ) => void
-	// toggleIsFetching : ( isFetching : boolean ) => void
 	toggleFollowingProgress : ( isFetching : boolean, userId : string ) => void
 	getUser : ( currentPage : number, pageSize : number ) => void
 	follow : ( id : string ) => void
@@ -85,12 +65,7 @@ const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 }
 
 export default connect ( mapStateToProps, {
-	// followSuccess,
-	// unfollowSuccess,
-	// setUsers,
 	setCurrentPage,
-	// setTotalUserCounts,
-	// toggleIsFetching,
 	toggleFollowingProgress,
 	getUser,
 	follow,
