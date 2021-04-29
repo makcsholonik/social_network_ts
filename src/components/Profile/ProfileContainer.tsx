@@ -15,7 +15,6 @@ type MapStatePropsType = {
 	profile : ProfileType | null
 };
 type MapDispatchPropsType = {
-	// setUserProfile : ( profile : ProfileType ) => void
 	getUserProfile: (userId : string ) => void
 };
 
@@ -31,9 +30,6 @@ export class ProfileContainer extends React.Component<PropsType> {
 			userId = '2'
 		}
 		this.props.getUserProfile(userId)
-		// usersAPI.getProfile ( userId ).then ( response => {
-		// 	this.props.setUserProfile ( response.data );
-		// } );
 	}
 
 	render () {
