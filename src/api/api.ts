@@ -1,3 +1,5 @@
+//DAL уровень
+
 import axios from "axios";
 
 const instance = axios.create ( {
@@ -15,9 +17,17 @@ export const usersAPI = {
 		} )
 	},
 	follow ( id : string ) {
-		return instance.post ( `https://social-network.samuraijs.com/api/1.0/follow/${ id }` )
+		return instance.post ( `follow/${ id }` )
 	},
 	unfollow ( id : string ) {
-		return instance.delete ( `https://social-network.samuraijs.com/api/1.0/follow/${ id }` )
+		return instance.delete ( `follow/${ id }` )
+	},
+	getProfile ( userId : string ) {
+		return instance.get ( `profile/${ userId }` )
+	},
+}
+export const authAPI = {
+	me () {
+		return instance.get ( `auth/me` )
 	}
 }

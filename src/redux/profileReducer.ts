@@ -1,4 +1,5 @@
 import { v1 } from "uuid";
+import { usersAPI } from "../api/api";
 
 export type PostType = {
 	id : string
@@ -7,28 +8,28 @@ export type PostType = {
 }
 
 type ObjectType = {
-	github: string
-	vk: string
-	facebook: string
-	instagram: string
-	twitter: string
-	website: string
-	youtube: string
-	mainLink: string
+	github : string
+	vk : string
+	facebook : string
+	instagram : string
+	twitter : string
+	website : string
+	youtube : string
+	mainLink : string
 }
 
 type PhotosType = {
-	small: string
-	large: string
+	small : string
+	large : string
 }
 
 export type ProfileType = {
-	userId: number
-	lookingForAJob: boolean
-	lookingForAJobDescription: string
-	fullName: string
-	contacts: ObjectType
-	photos: PhotosType
+	userId : number
+	lookingForAJob : boolean
+	lookingForAJobDescription : string
+	fullName : string
+	contacts : ObjectType
+	photos : PhotosType
 }
 
 
@@ -38,7 +39,7 @@ let initialState = {
 		{ id : v1 (), message : "Hello!", likeCounts : 31 }
 	] as Array<PostType>,
 	newPostText : "",
-	profile: null  as ProfileType | null
+	profile : null as ProfileType | null
 };
 
 type InitialStateProfileType = typeof initialState;
@@ -72,4 +73,11 @@ export const SET_USER_PROFILE = "SET-USER-PROFILE";
 
 export const addPostAC = () => ({ type : ADD_POST, } as const);
 export const updateNewPostTextAC = ( text : string ) => ({ type : UPDATE_NEW_POST_TEXT, postText : text } as const);
-export const setUserProfile = ( profile : ProfileType) => ({ type : SET_USER_PROFILE, profile } as const);
+export const setUserProfile = ( profile : ProfileType ) => ({ type : SET_USER_PROFILE, profile } as const);
+export const getUserProfile = ( userId : string ) => {
+	return ( dispatch : any ) => {
+		usersAPI.getProfile ( userId ).then ( response => {
+			dispatch(setUserProfile ( response.data ));
+		} );
+	}
+}
