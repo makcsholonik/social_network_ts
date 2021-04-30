@@ -3,6 +3,7 @@ import s from "./Dialogs.module.css";
 import { DialogMessage } from "./DialogMessage/DialogMessage";
 import { DialogItemUser } from "./DialogItem/DialogItem";
 import { DialogsPropsType } from "./DialogsContainer";
+import { Redirect } from "react-router";
 
 export const Dialogs = ( props : DialogsPropsType ) => {
 
@@ -17,6 +18,10 @@ export const Dialogs = ( props : DialogsPropsType ) => {
 	let onSendMessageClickHandler = () => {
 		props.onSendMessageClick ();
 	}
+
+	// Если мы не залогинены нас вернёт на страницу login
+	if ( !props.isAuth) return <Redirect to={ "/login" }/>
+
 
 	return (
 		<div className={ s.dialog }>

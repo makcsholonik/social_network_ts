@@ -3,7 +3,14 @@ import { Users } from "./Users";
 import { connect } from "react-redux";
 import { AppStateType } from "../../redux/redux-store";
 import { Preloader } from "../common/Preloader/Preloader";
-import { getUser, InitialStateUserType, setCurrentPage, toggleFollowingProgress, follow, unfollow} from "../../redux/usersReducer";
+import {
+	getUser,
+	InitialStateUserType,
+	setCurrentPage,
+	toggleFollowingProgress,
+	follow,
+	unfollow
+} from "../../redux/usersReducer";
 
 class UsersContainer extends React.Component<UsersPropsType> {
 
@@ -26,8 +33,8 @@ class UsersContainer extends React.Component<UsersPropsType> {
 					onPageChanged={ this.onPageChanged }
 					userPage={ this.props.userPage }
 					followingInProgress={ this.props.followingInProgress }
-					follow={this.props.follow}
-					unfollow={this.props.unfollow}
+					follow={ this.props.follow }
+					unfollow={ this.props.unfollow }
 				/>
 			</>
 		)

@@ -5,6 +5,7 @@ import { getUserProfile, ProfileType } from "../../redux/profileReducer";
 import { AppStateType } from '../../redux/redux-store';
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { Preloader } from "../common/Preloader/Preloader";
+import { Redirect } from "react-router";
 
 // import react-router/react-router-dom
 
@@ -13,9 +14,10 @@ type PathParamsType = {
 };
 type MapStatePropsType = {
 	profile : ProfileType | null
+	isAuth : boolean
 };
 type MapDispatchPropsType = {
-	getUserProfile: (userId : string ) => void
+	getUserProfile : ( userId : string ) => void
 };
 
 export type OwnPropsType = MapStatePropsType & MapDispatchPropsType
@@ -29,13 +31,14 @@ export class ProfileContainer extends React.Component<PropsType> {
 		if ( !userId) {
 			userId = '2'
 		}
-		this.props.getUserProfile(userId)
+		this.props.getUserProfile ( userId )
 	}
 
 	render () {
 		if ( !this.props.profile) {
 			return <Preloader/>
 		}
+		if (!this.props.isAuth) return <Redirect to={ "/login" }/>
 		return (
 			<Profile { ...this.props } profile={ this.props.profile }/>
 		)
@@ -44,7 +47,8 @@ export class ProfileContainer extends React.Component<PropsType> {
 
 const MapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	return {
-		profile : state.profilePage.profile
+		profile : state.profilePage.profile,
+		isAuth : state.auth.isAuth
 	}
 }
 
