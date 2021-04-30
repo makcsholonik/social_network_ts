@@ -4,6 +4,8 @@ import { Dialogs } from "./Dialogs";
 import { connect } from "react-redux";
 import { AppStateType } from "../../redux/redux-store";
 import { Dispatch } from "redux";
+import { Redirect } from "react-router";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 // функции mapStateToProps и mapDispatchToProps для настройки connect
 // connect - возвращает нам новую контейнерную компоненту: отрисовывается Dialogs компонента в неё засовывыется в props
@@ -42,5 +44,7 @@ const mapDispatchToProps = ( dispatch : Dispatch ) : MapDispatchPropsType => {
 	}
 }
 
-export const DialogsContainer = connect ( mapStateToProps, mapDispatchToProps ) ( Dialogs );
+const AuthRedirectComponent = withAuthRedirect(Dialogs)
+
+export const DialogsContainer = connect ( mapStateToProps, mapDispatchToProps ) ( AuthRedirectComponent );
 
