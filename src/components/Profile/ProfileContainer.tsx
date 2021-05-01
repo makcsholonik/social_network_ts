@@ -8,7 +8,7 @@ import { Preloader } from "../common/Preloader/Preloader";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 
-// import react-router/react-router-dom
+// * import react-router/react-router-dom
 
 type PathParamsType = {
 	userId : string // number
@@ -51,9 +51,8 @@ const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	}
 }
 
-// const WithUrlDataContainer = withRouter ( ProfileContainer);
-//
-// export default withAuthRedirect(connect ( mapStateToProps, { getUserProfile } ) ( WithUrlDataContainer ));
+// * const WithUrlDataContainer = withRouter ( ProfileContainer);
+// * export default withAuthRedirect(connect ( mapStateToProps, { getUserProfile } ) ( WithUrlDataContainer ));
 
 export default compose<React.ComponentType>(
 	connect ( mapStateToProps, { getUserProfile } ),
