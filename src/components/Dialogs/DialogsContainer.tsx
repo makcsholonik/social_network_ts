@@ -3,8 +3,7 @@ import { DialogsType, MessagesType, sendMessageAC, updateNewMessageBodyAC } from
 import { Dialogs } from "./Dialogs";
 import { connect } from "react-redux";
 import { AppStateType } from "../../redux/redux-store";
-import { Dispatch } from "redux";
-import { Redirect } from "react-router";
+import { compose, Dispatch } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 // функции mapStateToProps и mapDispatchToProps для настройки connect
@@ -44,7 +43,13 @@ const mapDispatchToProps = ( dispatch : Dispatch ) : MapDispatchPropsType => {
 	}
 }
 
-const AuthRedirectComponent = withAuthRedirect(Dialogs)
+// const AuthRedirectComponent = withAuthRedirect(Dialogs) // HOC
+//
+// export const DialogsContainer = connect ( mapStateToProps, mapDispatchToProps ) ( AuthRedirectComponent ); // connect - функция которая возвращает hoc
 
-export const DialogsContainer = connect ( mapStateToProps, mapDispatchToProps ) ( AuthRedirectComponent );
+// compose - берёт Dialogs и закидывает в ф-ию withAuthRedirect, получает результат и закидывает в ф-ию - connect ( mapStateToProps, mapDispatchToProps )
 
+export default compose<React.ComponentType>(
+	connect ( mapStateToProps, mapDispatchToProps ),
+	withAuthRedirect
+)(Dialogs);

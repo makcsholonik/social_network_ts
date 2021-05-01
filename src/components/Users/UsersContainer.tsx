@@ -4,13 +4,14 @@ import { connect } from "react-redux";
 import { AppStateType } from "../../redux/redux-store";
 import { Preloader } from "../common/Preloader/Preloader";
 import {
+	follow,
 	getUser,
 	InitialStateUserType,
 	setCurrentPage,
 	toggleFollowingProgress,
-	follow,
 	unfollow
 } from "../../redux/usersReducer";
+import { compose } from "redux";
 
 class UsersContainer extends React.Component<UsersPropsType> {
 
@@ -71,10 +72,16 @@ const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	}
 }
 
-export default connect ( mapStateToProps, {
-	setCurrentPage,
-	toggleFollowingProgress,
-	getUser,
-	follow,
-	unfollow
-} ) ( UsersContainer );
+// export default connect ( mapStateToProps, {
+// 	setCurrentPage,
+// 	toggleFollowingProgress,
+// 	getUser,
+// 	follow,
+// 	unfollow
+// } ) ( UsersContainer );
+
+export default compose<React.ComponentType> (
+	connect ( mapStateToProps, {
+		setCurrentPage, toggleFollowingProgress, getUser, follow, unfollow
+	} )
+) ( UsersContainer )
