@@ -1,5 +1,6 @@
 import { v1 } from "uuid";
 import { profileAPI, usersAPI } from "../api/api";
+import { Dispatch } from "redux";
 
 export type PostType = {
 	id : string
@@ -83,21 +84,21 @@ export const setStatus = ( status : string ) => ({ type : SET_STATUS, status } a
 
 // * если ajax запросы - создаём thunk
 export const getUserProfile = ( userId : string ) => {
-	return ( dispatch : any ) => {
+	return ( dispatch : Dispatch ) => {
 		profileAPI.getProfile ( userId ).then ( response => {
 			dispatch ( setUserProfile ( response.data ) );
 		} );
 	}
 }
 export const getStatusProfile = ( userId : string ) => {
-	return ( dispatch : any ) => {
+	return ( dispatch : Dispatch ) => {
 		profileAPI.getStatus ( userId ).then ( response => {
 			dispatch ( setStatus ( response.data ) );
 		} );
 	}
 }
 export const updateStatusProfile = ( status : string ) => {
-	return ( dispatch : any ) => {
+	return ( dispatch : Dispatch ) => {
 		profileAPI.updateStatus ( status ).then ( response => {
 			if (response.data.resultCode === 1) {
 				dispatch ( setStatus ( status ) );
