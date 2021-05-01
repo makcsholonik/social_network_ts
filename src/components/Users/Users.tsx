@@ -8,7 +8,7 @@ type PropsUserType = {
 	totalUsersCount : number
 	pageSize : number
 	currentPage : number
-	onPageChanged : any // support
+	onPageChanged : ( pageNumber : number ) => void
 	userPage : InitialStateUserType
 	followingInProgress : Array<string>
 	follow : ( id : string ) => void
