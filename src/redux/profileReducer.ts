@@ -97,10 +97,11 @@ export const getStatusProfile = ( userId : string ) => {
 		} );
 	}
 }
+
 export const updateStatusProfile = ( status : string ) => {
 	return ( dispatch : Dispatch ) => {
 		profileAPI.updateStatus ( status ).then ( response => {
-			if (response.data.resultCode === 1) {
+			if (response.data.resultCode === 0) {
 				dispatch ( setStatus ( status ) );
 			}
 		} );
