@@ -11,7 +11,7 @@ let rootReducer = combineReducers ( {
 	dialogPage : dialogReducer,
 	usersPage : usersReducer,
 	auth: authReducer,
-	form: formReducer
+	form: formReducer // * redux-form
 } )
 
 export type AppStateType = ReturnType<typeof rootReducer>;
