@@ -38,4 +38,4 @@ export const LoginForm = ( props : InjectedFormProps<FormDataType> ) => {
 	)
 };
 // * Оборачваем наш компонент, контейнерным компонентом - LoginReduxForm
-export const LoginReduxForm = reduxForm<FormDataType> ( { form : "login" } ) ( LoginForm );
+const LoginReduxForm = reduxForm<FormDataType> ( { form : "login" } ) ( LoginForm );

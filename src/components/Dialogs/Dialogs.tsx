@@ -9,15 +9,6 @@ export const Dialogs = ( props : DialogsPropsType ) => {
 	let dialogsElements = props.dialogs.map ( d => <DialogItemUser key={ d.id } id={ d.id } name={ d.name }/> );
 	let messagesElements = props.messages.map ( m => <DialogMessage key={ m.id } message={ m.message }/> );
 
-	// let newMessageBody = props.newMessageBody;
-	// let onNewMessageChangeHandler = ( e : ChangeEvent<HTMLTextAreaElement> ) => {
-	// 	let body = e.target.value;
-	// 	props.onNewMessageChange ( body );
-	// }
-	// let onSendMessageClickHandler = () => {
-	// 	props.onSendMessageClick ();
-	// }
-
 	let addNewMessage = ( values : any ) => {
 		props.onSendMessageClick (values.newMessageBody)
 	}
@@ -33,18 +24,6 @@ export const Dialogs = ( props : DialogsPropsType ) => {
 			<div className={ s.dialogMessage }>
 				<div>{ messagesElements }</div>
 				<AddMessageFormRedux onSubmit={ addNewMessage }/>
-				{/*<div>
-					<textarea
-						value={ newMessageBody }
-						onChange={ onNewMessageChangeHandler }
-						placeholder={ "Enter your message" }>
-					</textarea>
-				</div>
-				<div>
-					<button onClick={ onSendMessageClickHandler }>
-						send
-					</button>
-				</div>*/}
 			</div>
 		</div>
 	)
@@ -58,4 +37,4 @@ export const AddMessageForm = ( props : any ) => {
 		</form>
 	)
 }
-export const AddMessageFormRedux = reduxForm<any> ( { form : "addMessageForm" } ) ( AddMessageForm )
+const AddMessageFormRedux = reduxForm<any> ( { form : "addMessageForm" } ) ( AddMessageForm )

@@ -39,7 +39,6 @@ let initialState = {
 		{ id : v1 (), message : "Hello, I'm fine.", likeCounts : 30 },
 		{ id : v1 (), message : "Hello!", likeCounts : 31 }
 	] as Array<PostType>,
-	// newPostBody : "", // ! ??????
 	profile : null as ProfileType | null,
 	status : ""
 };
@@ -48,7 +47,6 @@ type InitialStateProfileType = typeof initialState;
 
 export type ProfileReducerActionsTypes =
 	ReturnType<typeof addPostAC>
-	// | ReturnType<typeof updateNewPostTextAC>
 	| ReturnType<typeof setUserProfile>
 	| ReturnType<typeof setStatus>
 
@@ -61,8 +59,6 @@ export const profileReducer = ( state : InitialStateProfileType = initialState, 
 				likeCounts : 0
 			}
 			return { ...state, posts : [...state.posts, newPost] };
-		// case UPDATE_NEW_POST_TEXT:
-		// 	return { ...state, newPostText : action.postText };
 		case SET_USER_PROFILE:
 			return { ...state, profile : action.profile };
 		case SET_STATUS:
@@ -73,12 +69,10 @@ export const profileReducer = ( state : InitialStateProfileType = initialState, 
 }
 
 export const ADD_POST = "ADD-POST";
-// export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 export const SET_USER_PROFILE = "SET-USER-PROFILE";
 export const SET_STATUS = "SET-STATUS";
 
 export const addPostAC = (newPostBody: string) => ({ type : ADD_POST, newPostBody } as const);
-// export const updateNewPostTextAC = ( text : string ) => ({ type : UPDATE_NEW_POST_TEXT, postText : text } as const);
 export const setUserProfile = ( profile : ProfileType ) => ({ type : SET_USER_PROFILE, profile } as const);
 export const setStatus = ( status : string ) => ({ type : SET_STATUS, status } as const)
 

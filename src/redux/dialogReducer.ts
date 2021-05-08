@@ -28,11 +28,6 @@ export type DialogReducerActionsTypes = ReturnType<typeof sendMessageAC>
 
 export const dialogReducer = ( state : InitialStateDialogsType = initialState, action : DialogReducerActionsTypes ) : InitialStateDialogsType => {
 	switch (action.type) {
-		// case UPDATE_NEW_MESSAGE_BODY:
-		// 	return {
-		// 		...state,
-		// 		newMessageBody : action.body
-		// 	};
 		case SEND_MESSAGE:
 			let body = action.newMessageBody;
 			return {
@@ -44,15 +39,8 @@ export const dialogReducer = ( state : InitialStateDialogsType = initialState, a
 	}
 }
 
-// export const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 export const SEND_MESSAGE = "SEND-MESSAGE";
 
-// export const updateNewMessageBodyAC = ( newMessageBody : string ) => {
-// 	return {
-// 		type : UPDATE_NEW_MESSAGE_BODY,
-// 		body : newMessageBody
-// 	} as const
-// }
 export const sendMessageAC = (newMessageBody: string) => {
 	return {
 		type : SEND_MESSAGE,
