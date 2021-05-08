@@ -1,25 +1,25 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import s from "./Dialogs.module.css";
 import { DialogMessage } from "./DialogMessage/DialogMessage";
 import { DialogItemUser } from "./DialogItem/DialogItem";
 import { DialogsPropsType } from "./DialogsContainer";
 import { Field, reduxForm } from "redux-form";
-
 export const Dialogs = ( props : DialogsPropsType ) => {
 
 	let dialogsElements = props.dialogs.map ( d => <DialogItemUser key={ d.id } id={ d.id } name={ d.name }/> );
 	let messagesElements = props.messages.map ( m => <DialogMessage key={ m.id } message={ m.message }/> );
-	let newMessageBody = props.newMessageBody;
 
-	let onNewMessageChangeHandler = ( e : ChangeEvent<HTMLTextAreaElement> ) => {
-		let body = e.target.value;
-		props.onNewMessageChange ( body );
-	}
-	let onSendMessageClickHandler = () => {
-		props.onSendMessageClick ();
-	}
+	// let newMessageBody = props.newMessageBody;
+	// let onNewMessageChangeHandler = ( e : ChangeEvent<HTMLTextAreaElement> ) => {
+	// 	let body = e.target.value;
+	// 	props.onNewMessageChange ( body );
+	// }
+	// let onSendMessageClickHandler = () => {
+	// 	props.onSendMessageClick ();
+	// }
+
 	let addNewMessage = ( values : any ) => {
-		alert ( values.NewMessageBody )
+		props.onSendMessageClick (values.newMessageBody)
 	}
 
 	// * Если мы не залогинены нас вернёт на страницу login
@@ -54,9 +54,7 @@ export const AddMessageForm = ( props : any ) => {
 	return (
 		<form onSubmit={ props.handleSubmit }>
 			<Field component={ "textarea" } placeholder={ "Enter your message" } name={ "NewMessageBody" }/>
-			<button>
-				send
-			</button>
+			<button>send</button>
 		</form>
 	)
 }

@@ -19,45 +19,44 @@ let initialState = {
 		{ id : v1 (), message : "Hello, Maxim!" },
 		{ id : v1 (), message : "Hello!" },
 		{ id : v1 (), message : "How do you feel?" }
-	] as Array<MessagesType>,
-	newMessageBody : "",
+	] as Array<MessagesType>
 }
 
 export type InitialStateDialogsType = typeof initialState
 
-export type DialogReducerActionsTypes = ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessageAC>
+export type DialogReducerActionsTypes = ReturnType<typeof sendMessageAC>
 
 export const dialogReducer = ( state : InitialStateDialogsType = initialState, action : DialogReducerActionsTypes ) : InitialStateDialogsType => {
 	switch (action.type) {
-		case UPDATE_NEW_MESSAGE_BODY:
-			return {
-				...state,
-				newMessageBody : action.body
-			};
+		// case UPDATE_NEW_MESSAGE_BODY:
+		// 	return {
+		// 		...state,
+		// 		newMessageBody : action.body
+		// 	};
 		case SEND_MESSAGE:
-			let body = state.newMessageBody;
+			let body = action.newMessageBody;
 			return {
 				...state,
 				messages : [...state.messages, { id : v1 (), message : body }],
-				newMessageBody : ""
 			};
 		default:
 			return state;
 	}
 }
 
-export const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
+// export const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 export const SEND_MESSAGE = "SEND-MESSAGE";
 
-export const updateNewMessageBodyAC = ( newMessageBody : string ) => {
-	return {
-		type : UPDATE_NEW_MESSAGE_BODY,
-		body : newMessageBody
-	} as const
-}
-export const sendMessageAC = () => {
+// export const updateNewMessageBodyAC = ( newMessageBody : string ) => {
+// 	return {
+// 		type : UPDATE_NEW_MESSAGE_BODY,
+// 		body : newMessageBody
+// 	} as const
+// }
+export const sendMessageAC = (newMessageBody: string) => {
 	return {
 		type : SEND_MESSAGE,
+		newMessageBody
 	} as const
 }
 

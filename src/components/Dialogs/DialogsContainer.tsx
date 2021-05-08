@@ -1,5 +1,5 @@
 import React from "react";
-import { DialogsType, MessagesType, sendMessageAC, updateNewMessageBodyAC } from "../../redux/dialogReducer";
+import { DialogsType, MessagesType, sendMessageAC } from "../../redux/dialogReducer";
 import { Dialogs } from "./Dialogs";
 import { connect } from "react-redux";
 import { AppStateType } from "../../redux/redux-store";
@@ -13,13 +13,13 @@ import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 type MapStatePropsType = {
 	dialogs : Array<DialogsType>
 	messages : Array<MessagesType>
-	newMessageBody : string
+	// newMessageBody : string
 	isAuth: boolean
 }
 
 type MapDispatchPropsType = {
-	onNewMessageChange : ( body : string ) => void
-	onSendMessageClick : () => void
+	// onNewMessageChange : ( body : string ) => void
+	onSendMessageClick : (newMessageBody: string) => void
 }
 
 export type DialogsPropsType = MapStatePropsType & MapDispatchPropsType
@@ -28,17 +28,17 @@ const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	return {
 		dialogs : state.dialogPage.dialogs,
 		messages : state.dialogPage.messages,
-		newMessageBody : state.dialogPage.newMessageBody,
+		// newMessageBody : state.dialogPage.newMessageBody,
 		isAuth: state.auth.isAuth
 	}
 }
 const mapDispatchToProps = ( dispatch : Dispatch ) : MapDispatchPropsType => {
 	return {
-		onNewMessageChange : ( body : string ) => {
-			dispatch ( updateNewMessageBodyAC ( body ) )
-		},
-		onSendMessageClick : () => {
-			dispatch ( sendMessageAC () );
+		// onNewMessageChange : ( body : string ) => {
+		// 	dispatch ( updateNewMessageBodyAC ( body ) )
+		// },
+		onSendMessageClick : (newMessageBody: string) => {
+			dispatch ( sendMessageAC (newMessageBody) );
 		}
 	}
 }
