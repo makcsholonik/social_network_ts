@@ -18,7 +18,6 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-	// onNewMessageChange : ( body : string ) => void
 	onSendMessageClick : (newMessageBody: string) => void
 }
 
@@ -28,15 +27,11 @@ const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	return {
 		dialogs : state.dialogPage.dialogs,
 		messages : state.dialogPage.messages,
-		// newMessageBody : state.dialogPage.newMessageBody,
 		isAuth: state.auth.isAuth
 	}
 }
 const mapDispatchToProps = ( dispatch : Dispatch ) : MapDispatchPropsType => {
 	return {
-		// onNewMessageChange : ( body : string ) => {
-		// 	dispatch ( updateNewMessageBodyAC ( body ) )
-		// },
 		onSendMessageClick : (newMessageBody: string) => {
 			dispatch ( sendMessageAC (newMessageBody) );
 		}
