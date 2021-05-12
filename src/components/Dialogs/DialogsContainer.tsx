@@ -13,7 +13,6 @@ import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 type MapStatePropsType = {
 	dialogs : Array<DialogsType>
 	messages : Array<MessagesType>
-	// newMessageBody : string
 	isAuth: boolean
 }
 
