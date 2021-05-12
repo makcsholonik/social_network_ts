@@ -17,6 +17,7 @@ type MapStatePropsType = {
 	isAuth : boolean
 }
 
+// ! sypport type
 const Login = ( props : any ) => {
 	const onSubmit = ( formData : FormDataType ) => {
 		props.login ( formData.email, formData.password, formData.rememberMe )

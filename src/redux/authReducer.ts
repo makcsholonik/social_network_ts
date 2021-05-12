@@ -29,8 +29,7 @@ export const authReducer = ( state : InitialStateAuthType = initialState, action
 		case SET_USER_DATA:
 			return {
 				...state,
-				...action.payload,
-				isAuth : true
+				...action.payload
 			}
 		default:
 			return state;
@@ -56,7 +55,7 @@ export const getAuthUserData = () => {
 }
 
 export const login = (email: string, password: string, rememberMe: boolean) => {
-	// ! support
+	// ! support type
 	return ( dispatch : any ) => {
 		authAPI.login (email, password, rememberMe).then ( response => {
 			if (response.data.resultCode === 0) {
@@ -67,10 +66,10 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
 }
 
 export const logout = () => {
-	return ( dispatch : Dispatch ) => {
+	return ( dispatch : any ) => {
 		authAPI.logout ().then ( response => {
 			if (response.data.resultCode === 0) {
-				// ! support
+				// ! support type
 				// @ts-ignore
 				dispatch ( setAuthUserData ( null, null, null, false ) );
 			}
