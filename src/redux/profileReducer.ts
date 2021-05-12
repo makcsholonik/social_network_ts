@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import { profileAPI, usersAPI } from "../api/api";
+import { profileAPI } from "../api/api";
 import { Dispatch } from "redux";
 
 export type PostType = {

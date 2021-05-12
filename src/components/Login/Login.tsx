@@ -2,16 +2,18 @@ import React from "react";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { required } from "../../utils/validators/validators";
 import { Input } from "../common/Textarea/FormControl";
+import { connect } from "react-redux";
+import { login } from "../../redux/authReducer";
 
 type FormDataType = {
-	login : string
+	email : string
 	password : string
 	rememberMe : boolean
 }
 
-export const Login = () => {
+const Login = (props: any ) => {
 	const onSubmit = ( formData : FormDataType ) => {
-		console.log ( formData )
+		props.login(formData.email, formData.password, formData.rememberMe )
 	}
 	return (
 		<div>
@@ -21,14 +23,16 @@ export const Login = () => {
 	)
 }
 
+export default connect (null, {login}) (Login);
+
 export const LoginForm = ( props : InjectedFormProps<FormDataType> ) => {
 	return (
 		<form onSubmit={ props.handleSubmit }>
 			<div>
-				<Field component={ Input } placeholder={ "login" } name={ "login" } validate={ [required] }/>
+				<Field component={ Input } type={ "text" } placeholder={ "email" } name={ "email" } validate={ [required] }/>
 			</div>
 			<div>
-				<Field component={ Input } placeholder={ "password" } name={ "password" } validate={ [required] }/>
+				<Field component={ Input } type={ "password" } placeholder={ "password" } name={ "password" } validate={ [required] }/>
 			</div>
 			<div>
 				<Field component={ Input } type={ "checkbox" } name={ "rememberMe" }/> remember me
