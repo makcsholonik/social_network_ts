@@ -16,6 +16,9 @@ type PathParamsType = {
 type MapStatePropsType = {
 	profile : ProfileType | null
 	status : string
+	autorizedUserId : number | null
+	isAuth: boolean
+
 };
 type MapDispatchPropsType = {
 	getUserProfile : ( userId : string ) => void
@@ -32,7 +35,9 @@ export class ProfileContainer extends React.Component<PropsType> {
 	componentDidMount () {
 		let userId = this.props.match.params.userId;
 		if ( !userId) {
-			userId = '2'
+			// ! support
+			// @ts-ignore
+			userId = this.props.autorizedUserId
 		}
 		this.props.getUserProfile ( userId );
 		this.props.getStatusProfile ( userId );
@@ -46,8 +51,8 @@ export class ProfileContainer extends React.Component<PropsType> {
 			<Profile
 				{ ...this.props }
 				profile={ this.props.profile }
-				status={this.props.status}
-				updateStatusProfile={this.props.updateStatusProfile}
+				status={ this.props.status }
+				updateStatusProfile={ this.props.updateStatusProfile }
 			/>
 		)
 	}
@@ -57,7 +62,9 @@ export class ProfileContainer extends React.Component<PropsType> {
 const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	return {
 		profile : state.profilePage.profile,
-		status : state.profilePage.status
+		status : state.profilePage.status,
+		autorizedUserId : state.auth.id,
+		isAuth : state.auth.isAuth
 	}
 }
 
@@ -65,7 +72,7 @@ const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 // * export default withAuthRedirect(connect ( mapStateToProps, { getUserProfile } ) ( WithUrlDataContainer ));
 
 export default compose<React.ComponentType> (
-	connect ( mapStateToProps, { getUserProfile, getStatusProfile, updateStatusProfile} ),
+	connect ( mapStateToProps, { getUserProfile, getStatusProfile, updateStatusProfile } ),
 	withRouter,
 	withAuthRedirect,
 ) ( ProfileContainer );
