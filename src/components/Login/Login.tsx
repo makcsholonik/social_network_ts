@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { login } from "../../redux/authReducer";
 import { Redirect } from "react-router-dom";
 import { AppStateType } from "../../redux/redux-store";
+import style from "./Login.module.css";
 
 type FormDataType = {
 	email : string
@@ -17,7 +18,7 @@ type MapStatePropsType = {
 	isAuth : boolean
 }
 
-// ! sypport type
+// ! support type
 const Login = ( props : any ) => {
 	const onSubmit = ( formData : FormDataType ) => {
 		props.login ( formData.email, formData.password, formData.rememberMe )
@@ -52,6 +53,9 @@ export const LoginForm = ( props : InjectedFormProps<FormDataType> ) => {
 			<div>
 				<Field component={ Input } type={ "checkbox" } name={ "rememberMe" }/> remember me
 			</div>
+				{props.error && <div className={style.fromSummaryError}>
+					{props.error}
+				</div>}
 			<div>
 				<button>Log In</button>
 			</div>
