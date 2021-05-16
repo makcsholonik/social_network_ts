@@ -17,7 +17,7 @@ type MapStatePropsType = {
 	profile : ProfileType | null
 	status : string
 	autorizedUserId : number | null
-	isAuth: boolean
+	isAuth : boolean
 
 };
 type MapDispatchPropsType = {

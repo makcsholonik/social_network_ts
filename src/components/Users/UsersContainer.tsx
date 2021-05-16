@@ -5,8 +5,8 @@ import { AppStateType } from "../../redux/redux-store";
 import { Preloader } from "../common/Preloader/Preloader";
 import {
 	follow,
+	ItemsType,
 	requestUser,
-	InitialStateUserType,
 	setCurrentPage,
 	toggleFollowingProgress,
 	unfollow
@@ -40,7 +40,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
 					pageSize={ this.props.pageSize }
 					currentPage={ this.props.currentPage }
 					onPageChanged={ this.onPageChanged }
-					userPage={ this.props.userPage }
+					users={ this.props.users }
 					followingInProgress={ this.props.followingInProgress }
 					follow={ this.props.follow }
 					unfollow={ this.props.unfollow }
@@ -51,7 +51,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
 }
 
 type MapStatePropsType = {
-	userPage : InitialStateUserType
+	users : Array<ItemsType>
 	pageSize : number
 	totalUsersCount : number
 	currentPage : number
@@ -71,13 +71,7 @@ export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
 
 const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	return {
-		// userPage : state.usersPage,
-		// pageSize : state.usersPage.pageSize,
-		// totalUsersCount : state.usersPage.totalUsersCount,
-		// currentPage : state.usersPage.currentPage,
-		// isFetching : state.usersPage.isFetching,
-		// followingInProgress : state.usersPage.followingInProgress
-		userPage : getUsers ( state ),
+		users : getUsers ( state ),
 		pageSize : getPageSize ( state ),
 		totalUsersCount : getTotalUsersCount ( state ),
 		currentPage : getCurrentPage ( state ),

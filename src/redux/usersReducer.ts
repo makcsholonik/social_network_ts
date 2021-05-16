@@ -5,12 +5,6 @@ type PhotosType = {
 	large : string
 }
 
-// type LocationType = {
-// 	id : string
-// 	city : string
-// 	country : string
-// }
-
 export type ItemsType = {
 	id : string
 	name : string
@@ -18,12 +12,6 @@ export type ItemsType = {
 	photos : PhotosType
 	followed : boolean,
 }
-
-// export type UserType = {
-// 	items : Array<ItemsType>
-// 	totalCount : number
-// 	error : string
-// }
 
 const initialState = {
 	users : [] as Array<ItemsType>,

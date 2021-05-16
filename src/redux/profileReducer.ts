@@ -72,7 +72,7 @@ export const ADD_POST = "ADD-POST";
 export const SET_USER_PROFILE = "SET-USER-PROFILE";
 export const SET_STATUS = "SET-STATUS";
 
-export const addPostAC = (newPostBody: string) => ({ type : ADD_POST, newPostBody } as const);
+export const addPostAC = ( newPostBody : string ) => ({ type : ADD_POST, newPostBody } as const);
 export const setUserProfile = ( profile : ProfileType ) => ({ type : SET_USER_PROFILE, profile } as const);
 export const setStatus = ( status : string ) => ({ type : SET_STATUS, status } as const)
 

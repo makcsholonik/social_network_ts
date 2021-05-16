@@ -1,7 +1,7 @@
 import React from "react";
 import cl from './Users.module.css';
 import userPhoto from "../../assets/img/users.png";
-import { InitialStateUserType } from "../../redux/usersReducer";
+import { ItemsType } from "../../redux/usersReducer";
 import { NavLink } from "react-router-dom";
 
 type PropsUserType = {
@@ -9,7 +9,7 @@ type PropsUserType = {
 	pageSize : number
 	currentPage : number
 	onPageChanged : ( pageNumber : number ) => void
-	userPage : InitialStateUserType
+	users : Array<ItemsType>
 	followingInProgress : Array<string>
 	follow : ( id : string ) => void
 	unfollow : ( id : string ) => void
@@ -23,6 +23,7 @@ export const Users = ( props : PropsUserType ) => {
 		pages.push ( i )
 	}
 
+
 	return (
 		<div>
 			<div>
@@ -35,7 +36,7 @@ export const Users = ( props : PropsUserType ) => {
 				} ) }
 			</div>
 			{
-				props.userPage.users.map ( u => <div key={ u.id }>
+				props.users.map ( u => <div key={ u.id }>
 					<span>
 						<div>
 							<NavLink to={ './profile/' + u.id }>
