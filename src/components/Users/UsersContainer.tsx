@@ -5,7 +5,7 @@ import { AppStateType } from "../../redux/redux-store";
 import { Preloader } from "../common/Preloader/Preloader";
 import {
 	follow,
-	getUser,
+	requestUser,
 	InitialStateUserType,
 	setCurrentPage,
 	toggleFollowingProgress,
@@ -24,11 +24,11 @@ import {
 class UsersContainer extends React.Component<UsersPropsType> {
 
 	componentDidMount () {
-		this.props.getUser ( this.props.currentPage, this.props.pageSize );
+		this.props.requestUser ( this.props.currentPage, this.props.pageSize );
 	}
 
 	onPageChanged = ( pageNumber : number ) => {
-		this.props.getUser ( pageNumber, this.props.pageSize );
+		this.props.requestUser ( pageNumber, this.props.pageSize );
 	}
 
 	render () {
@@ -62,7 +62,7 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
 	setCurrentPage : ( pageNumber : number ) => void
 	toggleFollowingProgress : ( isFetching : boolean, userId : string ) => void
-	getUser : ( currentPage : number, pageSize : number ) => void
+	requestUser : ( currentPage : number, pageSize : number ) => void
 	follow : ( id : string ) => void
 	unfollow : ( id : string ) => void
 }
@@ -97,6 +97,6 @@ const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 
 export default compose<React.ComponentType> (
 	connect ( mapStateToProps, {
-		setCurrentPage, toggleFollowingProgress, getUser, follow, unfollow
+		setCurrentPage, toggleFollowingProgress, requestUser, follow, unfollow
 	} )
 ) ( UsersContainer )
