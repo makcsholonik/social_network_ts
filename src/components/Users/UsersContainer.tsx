@@ -86,15 +86,6 @@ const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	}
 }
 
-
-// export default connect ( mapStateToProps, {
-// 	setCurrentPage,
-// 	toggleFollowingProgress,
-// 	getUser,
-// 	follow,
-// 	unfollow
-// } ) ( UsersContainer );
-
 export default compose<React.ComponentType> (
 	connect ( mapStateToProps, {
 		setCurrentPage, toggleFollowingProgress, requestUser, follow, unfollow
