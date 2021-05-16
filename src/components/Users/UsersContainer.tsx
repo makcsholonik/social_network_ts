@@ -12,6 +12,14 @@ import {
 	unfollow
 } from "../../redux/usersReducer";
 import { compose } from "redux";
+import {
+	getCurrentPage,
+	getFollowingInProgress,
+	getIsFetching,
+	getPageSize,
+	getTotalUsersCount,
+	getUsers
+} from "../../redux/usersSelectors";
 
 class UsersContainer extends React.Component<UsersPropsType> {
 
@@ -63,14 +71,21 @@ export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
 
 const mapStateToProps = ( state : AppStateType ) : MapStatePropsType => {
 	return {
-		userPage : state.usersPage,
-		pageSize : state.usersPage.pageSize,
-		totalUsersCount : state.usersPage.totalUsersCount,
-		currentPage : state.usersPage.currentPage,
-		isFetching : state.usersPage.isFetching,
-		followingInProgress : state.usersPage.followingInProgress
+		// userPage : state.usersPage,
+		// pageSize : state.usersPage.pageSize,
+		// totalUsersCount : state.usersPage.totalUsersCount,
+		// currentPage : state.usersPage.currentPage,
+		// isFetching : state.usersPage.isFetching,
+		// followingInProgress : state.usersPage.followingInProgress
+		userPage : getUsers ( state ),
+		pageSize : getPageSize ( state ),
+		totalUsersCount : getTotalUsersCount ( state ),
+		currentPage : getCurrentPage ( state ),
+		isFetching : getIsFetching ( state ),
+		followingInProgress : getFollowingInProgress ( state )
 	}
 }
+
 
 // export default connect ( mapStateToProps, {
 // 	setCurrentPage,
