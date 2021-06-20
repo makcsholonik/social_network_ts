@@ -45,8 +45,7 @@ export const setAuthUserData = ( id : number, email : string, login : string, is
 } as const);
 
 export const getAuthUserData = () => async ( dispatch : Dispatch ) => {
-	let response = await authAPI.me ();
-
+	const response = await authAPI.me ();
 	if (response.data.resultCode === 0) {
 		let { id, email, login } = response.data.data;
 		dispatch ( setAuthUserData ( id, email, login, true ) );
@@ -54,7 +53,7 @@ export const getAuthUserData = () => async ( dispatch : Dispatch ) => {
 };
 
 export const login = ( email : string, password : string, rememberMe : boolean ) => async ( dispatch : any ) => {
-	let response = await authAPI.login ( email, password, rememberMe );
+	const response = await authAPI.login ( email, password, rememberMe );
 	if (response.data.resultCode === 0) {
 		dispatch ( getAuthUserData () );
 	} else {
@@ -64,7 +63,7 @@ export const login = ( email : string, password : string, rememberMe : boolean )
 };
 
 export const logout = () => async ( dispatch : any ) => {
-	let response = await authAPI.logout ();
+	const response = await authAPI.logout ();
 	if (response.data.resultCode === 0) {
 		// @ts-ignore
 		dispatch ( setAuthUserData ( null, null, null, false ) );

@@ -2,6 +2,10 @@ import { v1 } from "uuid";
 import { profileAPI } from "../api/api";
 import { Dispatch } from "redux";
 
+export const ADD_POST = "samurai-network/profile/-POST";
+export const SET_USER_PROFILE = "samurai-network/profile/SET-USER-PROFILE";
+export const SET_STATUS = "samurai-network/profile/SET-STATUS";
+
 export type PostType = {
 	id : string
 	message : string
@@ -33,7 +37,6 @@ export type ProfileType = {
 	photos : PhotosType
 }
 
-
 let initialState = {
 	posts : [
 		{ id : v1 (), message : "Hello, I'm fine.", likeCounts : 30 },
@@ -57,47 +60,34 @@ export const profileReducer = ( state : InitialStateProfileType = initialState, 
 				id : v1 (),
 				message : action.newPostBody,
 				likeCounts : 0
-			}
+			};
 			return { ...state, posts : [...state.posts, newPost] };
 		case SET_USER_PROFILE:
 			return { ...state, profile : action.profile };
 		case SET_STATUS:
-			return { ...state, status : action.status }
+			return { ...state, status : action.status };
 		default:
 			return state;
 	}
-}
-
-export const ADD_POST = "ADD-POST";
-export const SET_USER_PROFILE = "SET-USER-PROFILE";
-export const SET_STATUS = "SET-STATUS";
+};
 
 export const addPostAC = ( newPostBody : string ) => ({ type : ADD_POST, newPostBody } as const);
 export const setUserProfile = ( profile : ProfileType ) => ({ type : SET_USER_PROFILE, profile } as const);
-export const setStatus = ( status : string ) => ({ type : SET_STATUS, status } as const)
+export const setStatus = ( status : string ) => ({ type : SET_STATUS, status } as const);
 
 // * если ajax запросы - создаём thunk
-export const getUserProfile = ( userId : string ) => {
-	return ( dispatch : Dispatch ) => {
-		profileAPI.getProfile ( userId ).then ( response => {
-			dispatch ( setUserProfile ( response.data ) );
-		} );
-	}
-}
-export const getStatusProfile = ( userId : string ) => {
-	return ( dispatch : Dispatch ) => {
-		profileAPI.getStatus ( userId ).then ( response => {
-			dispatch ( setStatus ( response.data ) );
-		} );
-	}
-}
+export const getUserProfile = ( userId : string ) => async ( dispatch : Dispatch ) => {
+	const response = await profileAPI.getProfile ( userId );
+	dispatch ( setUserProfile ( response.data ) );
+};
+export const getStatusProfile = ( userId : string ) => async ( dispatch : Dispatch ) => {
+	const response = await profileAPI.getStatus ( userId );
+	dispatch ( setStatus ( response.data ) );
+};
 
-export const updateStatusProfile = ( status : string ) => {
-	return ( dispatch : Dispatch ) => {
-		profileAPI.updateStatus ( status ).then ( response => {
-			if (response.data.resultCode === 0) {
-				dispatch ( setStatus ( status ) );
-			}
-		} );
+export const updateStatusProfile = ( status : string ) => async ( dispatch : Dispatch ) => {
+	const response = await profileAPI.updateStatus ( status );
+	if (response.data.resultCode === 0) {
+		dispatch ( setStatus ( status ) );
 	}
-}
+};
