@@ -1,5 +1,6 @@
 import { getAuthUserData } from "./authReducer";
 
+export const INITIALIZED_SUCCESS = "samurai-network/app/INITIALIZED-SUCCESS";
 
 let initialState = {
 	initialized : false as boolean
@@ -21,7 +22,6 @@ export const appReducer = ( state : InitialStateAppType = initialState, action :
 	}
 }
 
-export const INITIALIZED_SUCCESS = "INITIALIZED-SUCCESS";
 
 export const initializedSuccess = () => ({
 	type : INITIALIZED_SUCCESS,

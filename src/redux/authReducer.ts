@@ -2,6 +2,8 @@ import { authAPI } from "../api/api";
 import { Dispatch } from "redux";
 import { stopSubmit } from "redux-form";
 
+export const SET_USER_DATA = "samurai-network/auth/SET-USER-DATA";
+
 export type DataType = {
 	id : number
 	email : string
@@ -14,12 +16,12 @@ export type AuthType = {
 	messages : Array<string>
 }
 
-let initialState = {
+const initialState = {
 	id : null as number | null,
 	email : null as string | null,
 	login : null as string | null,
 	isAuth : false
-}
+};
 
 export type InitialStateAuthType = typeof initialState
 
@@ -31,55 +33,43 @@ export const authReducer = ( state : InitialStateAuthType = initialState, action
 			return {
 				...state,
 				...action.payload
-			}
+			};
 		default:
 			return state;
 	}
-}
-
-export const SET_USER_DATA = "SET-USER-DATA";
+};
 
 export const setAuthUserData = ( id : number, email : string, login : string, isAuth : boolean ) => ({
 	type : SET_USER_DATA,
 	payload : { id, email, login, isAuth }
 } as const);
 
-export const getAuthUserData = () => {
-	return ( dispatch : Dispatch ) => {
-		return authAPI.me ().then ( response => {
-			if (response.data.resultCode === 0) {
-				let { id, email, login } = response.data.data;
-				dispatch ( setAuthUserData ( id, email, login, true ) );
-			}
-		} )
-	}
-}
+export const getAuthUserData = () => async ( dispatch : Dispatch ) => {
+	let response = await authAPI.me ();
 
-export const login = ( email : string, password : string, rememberMe : boolean ) => {
-	// ! support type
-	return ( dispatch : any ) => {
-		authAPI.login ( email, password, rememberMe ).then ( response => {
-			if (response.data.resultCode === 0) {
-				dispatch ( getAuthUserData () );
-			} else {
-				let message = response.data.messages.length > 0 ? response.data.messages[ 0 ] : "Some error"
-				dispatch ( stopSubmit ( "login", { _error : message } ) )
-			}
-		} )
+	if (response.data.resultCode === 0) {
+		let { id, email, login } = response.data.data;
+		dispatch ( setAuthUserData ( id, email, login, true ) );
 	}
-}
+};
 
-export const logout = () => {
-	return ( dispatch : any ) => {
-		authAPI.logout ().then ( response => {
-			if (response.data.resultCode === 0) {
-				// ! support type
-				// @ts-ignore
-				dispatch ( setAuthUserData ( null, null, null, false ) );
-			}
-		} )
+export const login = ( email : string, password : string, rememberMe : boolean ) => async ( dispatch : any ) => {
+	let response = await authAPI.login ( email, password, rememberMe );
+	if (response.data.resultCode === 0) {
+		dispatch ( getAuthUserData () );
+	} else {
+		let message = response.data.messages.length > 0 ? response.data.messages[ 0 ] : "Some error";
+		dispatch ( stopSubmit ( "login", { _error : message } ) );
 	}
-}
+};
+
+export const logout = () => async ( dispatch : any ) => {
+	let response = await authAPI.logout ();
+	if (response.data.resultCode === 0) {
+		// @ts-ignore
+		dispatch ( setAuthUserData ( null, null, null, false ) );
+	}
+};
 
 
 
